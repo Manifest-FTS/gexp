@@ -23,8 +23,8 @@ const fira_code = Fira_Code({
 });
 
 export const metadata = {
-  title: 'Criptic',
-  description: 'Criptic - React Next Web3 NFT Crypto Dashboard Template',
+  title: 'GEXP',
+  description: 'Galachain Explorer',
 };
 
 export default function RootLayout({
