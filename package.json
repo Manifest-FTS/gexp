@@ -1,6 +1,6 @@
 {
-  "name": "Criptic",
-  "version": "2.7.1",
+  "name": "GEXP",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "clean": "rimraf -g \"{node_modules,.next,out.cache}\"",
