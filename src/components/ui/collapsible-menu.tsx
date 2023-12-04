@@ -21,6 +21,15 @@ type DropdownItemProps = {
   href: string;
 };
 
+// Feature flags
+const featureFlags = {
+  home: true,
+  authentication: false,
+  nftMarketplace: false,
+  tradingBot: false,
+  explorer: true, // Newly added feature
+};
+
 export function MenuItem({
   name,
   icon,
@@ -33,12 +42,19 @@ export function MenuItem({
   const [ref, { height }] = useMeasure<HTMLUListElement>();
   const isChildrenActive =
     dropdownItems && dropdownItems.some((item) => item.href === pathname);
+
   useEffect(() => {
     if (isChildrenActive) {
       setIsOpen(true);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // Only render the menu item if the feature flag is true
+  if (!featureFlags[name?.toLowerCase()]) {
+    return null;
+  }
+
   return (
     <div className="mb-2 min-h-[48px] list-none last:mb-0">
       {dropdownItems?.length ? (
@@ -48,7 +64,7 @@ export function MenuItem({
               'relative flex h-12 cursor-pointer items-center justify-between whitespace-nowrap  rounded-lg px-4 text-sm transition-all',
               isChildrenActive
                 ? 'text-white'
-                : 'text-gray-500 hover:text-brand dark:hover:text-white'
+                : 'text-gray-500 hover:text-brand dark:hover:text-white',
             )}
             onClick={() => setIsOpen(!isOpen)}
           >
@@ -67,7 +83,7 @@ export function MenuItem({
             {isChildrenActive && (
               <motion.span
                 className={cn(
-                  'absolute bottom-0 left-0 right-0 h-full w-full rounded-lg bg-brand opacity-0 shadow-large transition-opacity'
+                  'absolute bottom-0 left-0 right-0 h-full w-full rounded-lg bg-brand opacity-0 shadow-large transition-opacity',
                 )}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -104,7 +120,7 @@ export function MenuItem({
             'relative flex h-12 items-center whitespace-nowrap rounded-lg px-4 text-sm text-gray-500 transition-all hover:text-brand dark:hover:text-white',
             {
               'bg-brand': isActive,
-            }
+            },
           )}
           activeClassName="!text-white"
         >
@@ -114,7 +130,7 @@ export function MenuItem({
               {
                 'text-white': isActive,
                 'text-gray-500': !isActive && !name,
-              }
+              },
             )}
           >
             {icon}
@@ -124,7 +140,7 @@ export function MenuItem({
           {href === pathname && (
             <motion.span
               className={cn(
-                'absolute bottom-0 left-0 right-0 h-full w-full rounded-lg bg-brand opacity-0 shadow-large transition-opacity'
+                'absolute bottom-0 left-0 right-0 h-full w-full rounded-lg bg-brand opacity-0 shadow-large transition-opacity',
               )}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}

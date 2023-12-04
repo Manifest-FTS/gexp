@@ -11,12 +11,28 @@ import { CompassIcon } from '@/components/icons/compass';
 import { LivePricing } from '@/components/icons/live-pricing';
 import { LockIcon } from '@/components/icons/lock-icon';
 import { TradingBotIcon } from '@/components/icons/trading-bot-icon';
+import { GalaIcon } from '@/components/icons/gala';
 
 export const defaultMenuItems = [
   {
     name: 'Home',
     icon: <HomeIcon />,
     href: routes.home,
+  },
+  {
+    name: 'Explorer',
+    icon: <GalaIcon />,
+    href: '#', // This can be '#' if it's only a dropdown trigger
+    dropdownItems: [
+      {
+        name: 'Transactions',
+        href: routes.transactions, // Update with the correct route
+      },
+      {
+        name: 'Blocks',
+        href: routes.blocks, // Update with the correct route
+      },
+    ],
   },
   {
     name: 'Live Pricing',

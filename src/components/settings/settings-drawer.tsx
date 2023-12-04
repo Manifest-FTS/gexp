@@ -26,6 +26,14 @@ import { useLayout } from '@/lib/hooks/use-layout';
 import { LAYOUT_OPTIONS } from '@/lib/constants';
 import { usePathname } from 'next/navigation';
 
+// Feature flag configuration
+const featureConfig = {
+  mode: true,
+  layout: true,
+  direction: false,
+  color: true,
+};
+
 const ColorPreset = [
   {
     label: 'Black',
@@ -70,7 +78,7 @@ function SwitcherButton({
           'flex h-[70px] items-center justify-center rounded-lg text-center text-sm font-medium uppercase tracking-wide transition-all',
           checked
             ? 'bg-white shadow-large dark:bg-gray-600'
-            : 'bg-gray-100 text-gray-500 group-hover:bg-gray-50 dark:bg-gray-800 dark:text-gray-400 dark:group-hover:bg-gray-700'
+            : 'bg-gray-100 text-gray-500 group-hover:bg-gray-50 dark:bg-gray-800 dark:text-gray-400 dark:group-hover:bg-gray-700',
         )}
       >
         {children}
@@ -80,7 +88,7 @@ function SwitcherButton({
           'mt-3 block text-center text-sm transition-all',
           checked
             ? 'text-brand dark:text-white'
-            : 'text-gray-500 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white'
+            : 'text-gray-500 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white',
         )}
       >
         {title}
@@ -177,7 +185,7 @@ function LayoutSwitcher() {
     if (pathname.includes('/auth')) return false;
 
     if (isLayoutSegmentExistInURL) {
-      if (selectedLayout !== LAYOUT_OPTIONS.MODERN) {
+      if (selectedLayout !== LAYOUT_OPTIONS.CLASSIC) {
         URLSegments.splice(1, 1, String(selectedLayout));
       } else {
         return router.push(`/${URLSegments.slice(2).join('/')}`);
@@ -191,9 +199,9 @@ function LayoutSwitcher() {
   // set initial layout on component mount
   useEffect(() => {
     const initialLayout = layoutOptions.find(
-      (layout) => layout === layoutSegmentFromURL
+      (layout) => layout === layoutSegmentFromURL,
     );
-    setLayout(() => initialLayout ?? LAYOUT_OPTIONS.MODERN);
+    setLayout(() => initialLayout ?? LAYOUT_OPTIONS.CLASSIC);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -228,7 +236,7 @@ function LayoutSwitcher() {
 function ColorSwitcher() {
   const [themeColor, setThemeColor] = useLocalStorage(
     'criptic-color',
-    '#323743'
+    '#323743',
   );
   useThemeColor(themeColor ? themeColor : '#323743');
   return (
@@ -307,10 +315,10 @@ export default function SettingsDrawer() {
 
               <Scrollbar style={{ height: 'calc(100% - 64px)' }}>
                 <div className="pb-8">
-                  <ThemeSwitcher />
-                  <LayoutSwitcher />
-                  <DirectionSwitcher />
-                  <ColorSwitcher />
+                  {featureConfig.mode && <ThemeSwitcher />}
+                  {featureConfig.layout && <LayoutSwitcher />}
+                  {featureConfig.direction && <DirectionSwitcher />}
+                  {featureConfig.color && <ColorSwitcher />}
                 </div>
               </Scrollbar>
             </div>
