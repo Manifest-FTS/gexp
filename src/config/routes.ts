@@ -1,5 +1,9 @@
 const routes = {
   home: '/',
+  explorerBlocks: '/explorer/blocks',
+  explorerTx: '/explorer/tx',
+  blockDetail: (blockId) => `/explorer/blocks/${blockId}`,
+  transactionDetail: (txId) => `/explorer/tx/${txId}`,
   minimal: '/minimal',
   livePricing: '/live-pricing',
   retro: '/retro',
