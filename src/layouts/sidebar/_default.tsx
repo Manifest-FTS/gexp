@@ -73,7 +73,7 @@ export default function Sidebar({
         <div className="px-6 pb-5 2xl:px-8">
           <AuthorCard
             image={AuthorImage}
-            name="Cameron Williamson"
+            name="Cameron Williamson1"
             role="admin"
           />
 

@@ -1,20 +1,20 @@
 //images
 import BitcoinImage from '@/assets/images/coin/bitcoin.svg';
 import TetherImage from '@/assets/images/coin/tether.svg';
-import CardanoImage from '@/assets/images/coin/cardano.svg';
+import GalaImage from '@/assets/images/coin/gala.svg';
 import BinanceImage from '@/assets/images/coin/binance.svg';
 
 export const coinSlideData = [
   {
     id: '0',
-    name: 'Bitcoin',
-    symbol: 'BTC',
-    balance: '0.2231345',
-    usdBalance: '11,032.24',
-    logo: BitcoinImage,
+    name: 'Gala',
+    symbol: 'GALA',
+    balance: '1.2370',
+    usdBalance: '532.94',
+    logo: GalaImage,
     change: '+12.5%',
     isChangePositive: true,
-    color: '#FDEDD4',
+    color: '#DBE3FF',
   },
   {
     id: '1',
@@ -29,14 +29,14 @@ export const coinSlideData = [
   },
   {
     id: '2',
-    name: 'Cardano',
-    symbol: 'ADA',
-    balance: '1.2370',
-    usdBalance: '532.94',
-    logo: CardanoImage,
+    name: 'Bitcoin',
+    symbol: 'BTC',
+    balance: '0.2231345',
+    usdBalance: '11,032.24',
+    logo: BitcoinImage,
     change: '+12.5%',
     isChangePositive: true,
-    color: '#DBE3FF',
+    color: '#FDEDD4',
   },
   {
     id: '3',
