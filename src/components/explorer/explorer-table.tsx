@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-  useTable,
-  useResizeColumns,
-  useFlexLayout,
-  useSortBy,
-  usePagination,
-} from 'react-table';
+import { useTable, useSortBy, usePagination } from 'react-table';
 import Scrollbar from '@/components/ui/scrollbar';
 import {
   LatestBlocksData,
@@ -13,27 +7,35 @@ import {
   BlocksColumns,
   TransactionsColumns,
 } from '@/data/static/explorer-data';
-import Button from '@/components/ui/button'; // Assuming this is the correct import path
+import Button from '@/components/ui/button';
 
 export default function ExplorerTable() {
   const latestBlocks = React.useMemo(
-    () => LatestBlocksData.slice(0, 10),
+    () => (LatestBlocksData ? LatestBlocksData.slice(0, 10) : []),
     [LatestBlocksData],
   );
   const latestTransactions = React.useMemo(
-    () => LatestTransactionsData.slice(0, 9),
+    () => (LatestTransactionsData ? LatestTransactionsData.slice(0, 9) : []),
     [LatestTransactionsData],
   );
 
-  const blocksTableInstance = useTable({
-    columns: BlocksColumns,
-    data: latestBlocks,
-  });
+  const blocksTableInstance = useTable(
+    {
+      columns: BlocksColumns,
+      data: latestBlocks,
+    },
+    useSortBy,
+    usePagination,
+  );
 
-  const transactionsTableInstance = useTable({
-    columns: TransactionsColumns,
-    data: latestTransactions,
-  });
+  const transactionsTableInstance = useTable(
+    {
+      columns: TransactionsColumns,
+      data: latestTransactions,
+    },
+    useSortBy,
+    usePagination,
+  );
 
   const renderTable = (tableInstance, title) => (
     <div className="rounded-lg bg-white dark:bg-light-dark">
@@ -69,22 +71,27 @@ export default function ExplorerTable() {
               {...tableInstance.getTableBodyProps()}
               className="bg-white divide-y divide-gray-200"
             >
-              {tableInstance.rows.map((row, idx) => {
-                tableInstance.prepareRow(row);
-                return (
-                  <tr {...row.getRowProps()} key={idx} className="align-middle">
-                    {row.cells.map((cell, idx) => (
-                      <td
-                        {...cell.getCellProps()}
-                        key={idx}
-                        className="px-4 py-2 text-left whitespace-nowrap"
-                      >
-                        {cell.render('Cell')}
-                      </td>
-                    ))}
-                  </tr>
-                );
-              })}
+              {tableInstance.page &&
+                tableInstance.page.map((row, idx) => {
+                  tableInstance.prepareRow(row);
+                  return (
+                    <tr
+                      {...row.getRowProps()}
+                      key={idx}
+                      className="align-middle"
+                    >
+                      {row.cells.map((cell, idx) => (
+                        <td
+                          {...cell.getCellProps()}
+                          key={idx}
+                          className="px-4 py-2 text-left whitespace-nowrap"
+                        >
+                          {cell.render('Cell')}
+                        </td>
+                      ))}
+                    </tr>
+                  );
+                })}
             </tbody>
           </table>
           <div className="text-center py-4">
@@ -100,6 +107,20 @@ export default function ExplorerTable() {
               }
             >
               View All {title}
+            </Button>
+          </div>
+          <div className="flex justify-end px-4">
+            <Button
+              onClick={() => tableInstance.previousPage()}
+              disabled={!tableInstance.canPreviousPage}
+            >
+              Previous
+            </Button>
+            <Button
+              onClick={() => tableInstance.nextPage()}
+              disabled={!tableInstance.canNextPage}
+            >
+              Next
             </Button>
           </div>
         </Scrollbar>
