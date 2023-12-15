@@ -169,10 +169,7 @@ export const BlocksColumns = [
     accessor: 'blockId',
     Cell: ({ row }) => (
       <div className="">
-        <a
-          href={routes.blockDetail(row.original.blockId)}
-          className="text-blue-600 hover:underline"
-        >
+        <a href="#" className="text-blue-600 hover:underline">
           {row.original.blockId}
         </a>
         <div className="text-xs text-gray-500">{row.original.timestamp}</div>
@@ -217,10 +214,7 @@ export const TransactionsColumns = [
     accessor: 'txId',
     Cell: ({ row }) => (
       <div>
-        <a
-          href={routes.transactionDetail(row.original.txId)}
-          className="text-blue-600 hover:underline"
-        >
+        <a href="#" className="text-blue-600 hover:underline">
           {truncateMiddle(row.original.txId, 6, 4)}
         </a>
         <div className="text-xs text-gray-500">{row.original.timestamp}</div>
