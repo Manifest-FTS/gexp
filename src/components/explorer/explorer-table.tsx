@@ -1,5 +1,11 @@
 import React from 'react';
-import { useTable, useSortBy, usePagination } from 'react-table';
+import {
+  useTable,
+  useResizeColumns,
+  useFlexLayout,
+  useSortBy,
+  usePagination,
+} from 'react-table';
 import Scrollbar from '@/components/ui/scrollbar';
 import {
   LatestBlocksData,
@@ -7,35 +13,27 @@ import {
   BlocksColumns,
   TransactionsColumns,
 } from '@/data/static/explorer-data';
-import Button from '@/components/ui/button';
+import Button from '@/components/ui/button'; // Assuming this is the correct import path
 
 export default function ExplorerTable() {
   const latestBlocks = React.useMemo(
-    () => (LatestBlocksData ? LatestBlocksData.slice(0, 10) : []),
+    () => LatestBlocksData.slice(0, 10),
     [LatestBlocksData],
   );
   const latestTransactions = React.useMemo(
-    () => (LatestTransactionsData ? LatestTransactionsData.slice(0, 9) : []),
+    () => LatestTransactionsData.slice(0, 9),
     [LatestTransactionsData],
   );
 
-  const blocksTableInstance = useTable(
-    {
-      columns: BlocksColumns,
-      data: latestBlocks,
-    },
-    useSortBy,
-    usePagination,
-  );
+  const blocksTableInstance = useTable({
+    columns: BlocksColumns,
+    data: latestBlocks,
+  });
 
-  const transactionsTableInstance = useTable(
-    {
-      columns: TransactionsColumns,
-      data: latestTransactions,
-    },
-    useSortBy,
-    usePagination,
-  );
+  const transactionsTableInstance = useTable({
+    columns: TransactionsColumns,
+    data: latestTransactions,
+  });
 
   const renderTable = (tableInstance, title) => (
     <div className="rounded-lg bg-white dark:bg-light-dark">
@@ -71,56 +69,27 @@ export default function ExplorerTable() {
               {...tableInstance.getTableBodyProps()}
               className="bg-white divide-y divide-gray-200"
             >
-              {tableInstance.page &&
-                tableInstance.page.map((row, idx) => {
-                  tableInstance.prepareRow(row);
-                  return (
-                    <tr
-                      {...row.getRowProps()}
-                      key={idx}
-                      className="align-middle"
-                    >
-                      {row.cells.map((cell, idx) => (
-                        <td
-                          {...cell.getCellProps()}
-                          key={idx}
-                          className="px-4 py-2 text-left whitespace-nowrap"
-                        >
-                          {cell.render('Cell')}
-                        </td>
-                      ))}
-                    </tr>
-                  );
-                })}
+              {tableInstance.rows.map((row, idx) => {
+                tableInstance.prepareRow(row);
+                return (
+                  <tr {...row.getRowProps()} key={idx} className="align-middle">
+                    {row.cells.map((cell, idx) => (
+                      <td
+                        {...cell.getCellProps()}
+                        key={idx}
+                        className="px-4 py-2 text-left whitespace-nowrap"
+                      >
+                        {cell.render('Cell')}
+                      </td>
+                    ))}
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
           <div className="text-center py-4">
-            <Button
-              size="large"
-              shape="rounded"
-              className="uppercase"
-              onClick={() =>
-                (window.location.href =
-                  title === 'Latest Blocks'
-                    ? '/explorer/block'
-                    : '/explorer/tx')
-              }
-            >
+            <Button size="large" shape="rounded" className="uppercase">
               View All {title}
-            </Button>
-          </div>
-          <div className="flex justify-end px-4">
-            <Button
-              onClick={() => tableInstance.previousPage()}
-              disabled={!tableInstance.canPreviousPage}
-            >
-              Previous
-            </Button>
-            <Button
-              onClick={() => tableInstance.nextPage()}
-              disabled={!tableInstance.canNextPage}
-            >
-              Next
             </Button>
           </div>
         </Scrollbar>
