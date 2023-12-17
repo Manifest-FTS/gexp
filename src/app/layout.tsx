@@ -1,4 +1,5 @@
-import { Suspense } from 'react';
+// pages/_app.tsx
+import { Component, Suspense } from 'react';
 import { Fira_Code } from 'next/font/google';
 import cn from 'classnames';
 import { QueryClientProvider } from '@/app/shared/query-client-provider';
@@ -8,13 +9,14 @@ import ModalsContainer from '@/components/modal-views/container';
 import DrawersContainer from '@/components/drawer-views/container';
 import SettingsButton from '@/components/settings/settings-button';
 import SettingsDrawer from '@/components/settings/settings-drawer';
-// base css file
 import 'overlayscrollbars/overlayscrollbars.css';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import '@/assets/css/scrollbar.css';
 import '@/assets/css/globals.css';
 import '@/assets/css/range-slider.css';
+import { ClassicHeader } from '@/layouts/header/header';
+import Sidebar from '@/layouts/sidebar/_expandable';
 
 const fira_code = Fira_Code({
   weight: ['400', '500', '600', '700'],
@@ -27,7 +29,7 @@ export const metadata = {
   description: 'Galachain Explorer',
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
@@ -51,7 +53,11 @@ export default function RootLayout({
                 <ModalsContainer />
                 <DrawersContainer />
               </Suspense>
-              {children}
+              <ClassicHeader />
+              <Sidebar className="hidden xl:block" />
+              <main className="min-h-screen px-4 pb-16 pt-4 sm:px-6 sm:pb-20 lg:px-8 xl:pb-24 xl:pt-5 3xl:px-10">
+                {children}
+              </main>
             </WagmiConfig>
           </ThemeProvider>
         </QueryClientProvider>

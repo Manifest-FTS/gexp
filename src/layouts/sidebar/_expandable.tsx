@@ -16,30 +16,23 @@ import { Close } from '@/components/icons/close';
 import { useClickAway } from '@/lib/hooks/use-click-away';
 import { defaultMenuItems } from '@/layouts/sidebar/_menu-items';
 import routes from '@/config/routes';
-//images
 import AuthorImage from '@/assets/images/author.jpg';
-import { LAYOUT_OPTIONS } from '@/lib/constants';
 
-const layoutOption = '';
 const sideBarMenuItems = defaultMenuItems.map((item) => ({
   name: item.name,
   icon: item.icon,
-  href: '/' + LAYOUT_OPTIONS.CLASSIC + (item.href === '/' ? '' : item.href),
+  href: item.href, // Use item.href directly
   ...(item.dropdownItems && {
     dropdownItems: item?.dropdownItems?.map((dropdownItem: any) => ({
       name: dropdownItem.name,
       ...(dropdownItem?.icon && { icon: dropdownItem.icon }),
-      href:
-        item.name === 'Authentication'
-          ? layoutOption + dropdownItem.href
-          : '/' + LAYOUT_OPTIONS.RETRO + dropdownItem.href,
+      href: dropdownItem.href, // Use dropdownItem.href directly
     })),
   }),
 }));
 
 export default function Sidebar({ className }: { className?: string }) {
   const router = useRouter();
-  const { layout } = useLayout();
   const pathname = usePathname();
   const { closeDrawer } = useDrawer();
   const [open, setOpen] = useState(false);
@@ -141,12 +134,7 @@ export default function Sidebar({ className }: { className?: string }) {
               y: 0,
             }}
             className="cursor-pointer pb-2"
-            onClick={() =>
-              router.push(
-                (layout === LAYOUT_OPTIONS.MODERN ? '' : layout) +
-                  routes.profile,
-              )
-            }
+            onClick={() => router.push(routes.profile)}
           >
             <AuthorCard image={AuthorImage} />
           </motion.div>
@@ -160,12 +148,7 @@ export default function Sidebar({ className }: { className?: string }) {
                   delay: 0.1,
                 },
               }}
-              onClick={() =>
-                router.push(
-                  (layout === LAYOUT_OPTIONS.MODERN ? '' : layout) +
-                    routes.profile,
-                )
-              }
+              onClick={() => router.push(routes.profile)}
             >
               <AuthorCard
                 image={AuthorImage}

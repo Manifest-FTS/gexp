@@ -21,15 +21,6 @@ type DropdownItemProps = {
   href: string;
 };
 
-// Feature flags
-const featureFlags = {
-  home: true,
-  authentication: false,
-  nftMarketplace: false,
-  tradingBot: false,
-  explorer: true, // Newly added feature
-};
-
 export function MenuItem({
   name,
   icon,
@@ -49,11 +40,6 @@ export function MenuItem({
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  // Only render the menu item if the feature flag is true
-  if (!featureFlags[name?.toLowerCase()]) {
-    return null;
-  }
 
   return (
     <div className="mb-2 min-h-[48px] list-none last:mb-0">
