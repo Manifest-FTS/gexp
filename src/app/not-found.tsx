@@ -9,33 +9,12 @@ import { useIsMounted } from '@/lib/hooks/use-is-mounted';
 import { useIsDarkMode } from '@/lib/hooks/use-is-dark-mode';
 import ErrorLightImage from '@/assets/images/404-light.svg';
 import ErrorDarkImage from '@/assets/images/404-dark.svg';
-import { LAYOUT_OPTIONS } from '@/lib/constants';
-import { useLayout } from '@/lib/hooks/use-layout';
-import ModernLayout from '@/layouts/modern/layout';
-import MinimalLayout from '@/layouts/minimal/layout';
-import RetroLayout from '@/layouts/retro/layout';
-import ClassicLayout from '@/layouts/classic/layout';
 
-const Layout = ({ children }: React.PropsWithChildren) => {
-  const { layout } = useLayout();
-  if (layout === LAYOUT_OPTIONS.MINIMAL) {
-    return <MinimalLayout>{children}</MinimalLayout>;
-  }
-  if (layout === LAYOUT_OPTIONS.CLASSIC) {
-    return <ClassicLayout>{children}</ClassicLayout>;
-  }
-  if (layout === LAYOUT_OPTIONS.RETRO) {
-    return <RetroLayout>{children}</RetroLayout>;
-  }
-  return <ModernLayout>{children}</ModernLayout>;
-};
-
-const NotFoundPage = () => {
-  const { layout } = useLayout();
+export default function NotFoundPage() {
   const isMounted = useIsMounted();
   const { isDarkMode } = useIsDarkMode();
   return (
-    <Layout>
+    <div>
       <div className="flex max-w-full flex-col items-center justify-center text-center">
         <div className="relative w-52 max-w-full sm:w-[400px] xl:w-[450px] 3xl:w-[500px]">
           {isMounted && !isDarkMode && (
@@ -53,17 +32,10 @@ const NotFoundPage = () => {
           Sorry, the page you are looking for might be renamed, removed, or
           might never exist.
         </p>
-        <AnchorLink
-          href={{
-            pathname:
-              layout === LAYOUT_OPTIONS.MODERN ? '/' : routes.home + layout,
-          }}
-        >
+        <AnchorLink href={{ pathname: routes.home }}>
           <Button shape="rounded">Back to Home</Button>
         </AnchorLink>
       </div>
-    </Layout>
+    </div>
   );
-};
-
-export default NotFoundPage;
+}

@@ -2,7 +2,7 @@ import cn from 'classnames';
 import { ClassicHeader } from '@/layouts/header/header';
 import Sidebar from '@/layouts/sidebar/_expandable';
 
-export default function ClassicLayout({
+export default function Layout({
   children,
   contentClassName,
 }: React.PropsWithChildren<{ contentClassName?: string }>) {
@@ -13,7 +13,7 @@ export default function ClassicLayout({
       <main
         className={cn(
           'min-h-screen px-4 pb-16 pt-4 sm:px-6 sm:pb-20 lg:px-8 xl:pb-24 xl:pt-5 3xl:px-10',
-          contentClassName
+          contentClassName,
         )}
       >
         {children}
