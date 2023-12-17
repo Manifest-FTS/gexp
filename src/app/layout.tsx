@@ -53,11 +53,13 @@ export default async function RootLayout({
                 <ModalsContainer />
                 <DrawersContainer />
               </Suspense>
-              <ClassicHeader />
-              <Sidebar className="hidden xl:block" />
-              <main className="min-h-screen px-4 pb-16 pt-4 sm:px-6 sm:pb-20 lg:px-8 xl:pb-24 xl:pt-5 3xl:px-10">
-                {children}
-              </main>
+              <div className="ltr:xl:pl-24 rtl:xl:pr-24 ltr:2xl:pl-28 rtl:2xl:pr-28 ">
+                <ClassicHeader />
+                <Sidebar className="hidden xl:block" />
+                <main className="min-h-screen px-4 pb-16 pt-4 sm:px-6 sm:pb-20 lg:px-8 xl:pb-24 xl:pt-5 3xl:px-10">
+                  {children}
+                </main>
+              </div>
             </WagmiConfig>
           </ThemeProvider>
         </QueryClientProvider>
