@@ -3,6 +3,7 @@ const routes = {
   transactions: '/explorer/tx',
   blocks: '/explorer/blocks',
   nfts: '/nfts',
+  nftDetails: '/nfts/nft',
   notification: '/notifications',
   search: '/search',
   signIn: '/authentication',

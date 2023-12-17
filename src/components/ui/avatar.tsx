@@ -46,7 +46,7 @@ function Avatar({
         'relative shrink-0 overflow-hidden',
         className,
         shapes[shape],
-        shape === 'circle' && sizeClassNames
+        shape === 'circle' && sizeClassNames,
       )}
     >
       {shape === 'circle' ? (
@@ -66,7 +66,6 @@ function Avatar({
             width={width}
             height={height}
             priority
-            placeholder="blur"
             className="rounded-full"
           />
         )

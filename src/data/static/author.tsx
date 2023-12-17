@@ -12,7 +12,7 @@ import User5 from '@/assets/images/avatar/6.png';
 export const authorData = {
   id: 157896,
   name: 'Spy Thirtythree',
-  user_name: 'Cameronwilliamson',
+  user_name: 'AtlanteanX',
   wallet_key:
     '0x9Af568442868356c7aE834A47614600002545476555555555772d9F5B87e9b',
   created_at: 'November 2021',

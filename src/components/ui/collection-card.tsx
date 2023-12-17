@@ -33,13 +33,12 @@ export default function CollectionCard({ item, className = '' }: CardProps) {
     <div
       className={cn(
         'group relative overflow-hidden rounded-lg transition-transform hover:-translate-y-1',
-        className
+        className,
       )}
     >
       <div className="relative flex aspect-[8/11] w-full justify-center overflow-hidden rounded-lg">
         <Image
           src={cover_image}
-          placeholder="blur"
           width={600}
           priority
           quality={100}

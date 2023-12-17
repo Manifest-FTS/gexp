@@ -12,18 +12,13 @@ export default function PreviewContent() {
           <Avatar
             size="sm"
             image={AuthorImage}
-            alt="Cameronwilliamson"
+            alt="AtlanteanX"
             className="border-white bg-gray-300 ltr:mr-3 rtl:ml-3 dark:bg-gray-400"
           />
-          @Cameronwilliamson
+          @AtlanteanX
         </div>
         <div className="relative block w-full">
-          <Image
-            src={NFT1}
-            placeholder="blur"
-            width={467}
-            alt="Pulses of Imagination #214"
-          />
+          <Image src={NFT1} width={467} alt="Pulses of Imagination #214" />
         </div>
         <div className="p-5">
           <div className="text-sm font-medium text-black dark:text-white">
