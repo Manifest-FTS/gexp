@@ -15,27 +15,26 @@ export default function ExplorerHero() {
         <p className="mb-6">
           Explore blocks, transactions, and addresses on the GalaChain
         </p>
-        <div className="flex items-center">
-          <div className="relative">
+        <div className="flex flex-col md:flex-row items-center">
+          <div className="w-full md:w-auto relative mb-4 md:mb-0 md:mr-4">
             <input
               type="text"
               placeholder="Search Token / Block / Tx / Address"
               className="pl-4 pr-10 py-2 border rounded-md"
-              value={searchValue}
-              onChange={(e) => setSearchValue(e.target.value)}
+              value=""
             />
-            <button className="absolute right-2 top-1/2 transform -translate-y-1/2 text-lg">
-              🔍
-            </button>
+            <button className="absolute right-2 top-1/2 transform -translate-y-1/2 text-lg">🔍</button>
           </div>
-          <select className="ml-4 border rounded-md py-2 px-4">
-            {galaChannels.map((channel, index) => (
-              <option value={index} key={index}>
-                {channel.name}
-              </option>
-            ))}
+          <select className="w-full md:w-auto border rounded-md py-2 px-4">
+            <option value="0">All</option>
+            <option value="1">Asset Channel</option>
+            <option value="2">Battlestar Galactica Eternity</option>
+            <option value="3">Champions Arena</option>
+            <option value="4">Echoes of Empire</option>
+            <option value="5">Spider Tanks</option>
           </select>
         </div>
+
       </div>
     </div>
   );
