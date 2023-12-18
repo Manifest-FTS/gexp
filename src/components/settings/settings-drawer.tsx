@@ -36,27 +36,27 @@ const featureConfig = {
 
 const ColorPreset = [
   {
-    label: 'Black',
+    label: 'Just Black',
     value: '#323743',
   },
   {
-    label: 'Blue',
+    label: 'Gamer Blues',
     value: '#2a52be',
   },
   {
-    label: 'Green',
+    label: 'Green Juice',
     value: '#009e60',
   },
   {
-    label: 'Red',
+    label: 'Angry Red',
     value: '#e34234',
   },
   {
-    label: 'Purple',
+    label: 'Violet Flame',
     value: '#9370DB',
   },
   {
-    label: 'Orange',
+    label: 'Gala Gold',
     value: '#ffa500',
   },
 ];
@@ -316,7 +316,7 @@ export default function SettingsDrawer() {
               <Scrollbar style={{ height: 'calc(100% - 64px)' }}>
                 <div className="pb-8">
                   {featureConfig.mode && <ThemeSwitcher />}
-                  {featureConfig.layout && <LayoutSwitcher />}
+                  {/* {featureConfig.layout && <LayoutSwitcher />} */}
                   {featureConfig.direction && <DirectionSwitcher />}
                   {featureConfig.color && <ColorSwitcher />}
                 </div>
