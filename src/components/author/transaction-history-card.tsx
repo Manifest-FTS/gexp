@@ -114,7 +114,6 @@ export default function TransactionHistoryCard({ item }: { item: CardProps }) {
                   width={40}
                   height={40}
                   className="rounded-full"
-                  placeholder="blur"
                 />
               ) : (
                 <QuestionIcon className="h-5 w-5 xl:h-6 xl:w-6" />

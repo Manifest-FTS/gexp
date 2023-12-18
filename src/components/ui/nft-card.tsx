@@ -54,14 +54,7 @@ export default function NFTGrid({
         }
         className="relative block w-full"
       >
-        <Image
-          src={image}
-          placeholder="blur"
-          width={450}
-          height={450}
-          alt=""
-          className="w-full"
-        />
+        <Image src={image} width={450} height={450} alt="" className="w-full" />
       </AnchorLink>
 
       <div className="p-5">

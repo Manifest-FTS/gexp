@@ -2,36 +2,31 @@ import { useState } from 'react';
 import { StaticImageData } from 'next/image';
 import { SearchIcon } from '@/components/icons/search';
 import Avatar from '@/components/ui/avatar';
-import CollectionImage1 from '@/assets/images/collection/collection-1.jpg';
-import CollectionImage2 from '@/assets/images/collection/collection-2.jpg';
-import CollectionImage3 from '@/assets/images/collection/collection-3.jpg';
-import CollectionImage4 from '@/assets/images/collection/collection-4.jpg';
+import CollectionImage1 from '@/assets/images/collection/collection-1.png';
+import CollectionImage2 from '@/assets/images/collection/collection-2.png';
+import CollectionImage3 from '@/assets/images/collection/collection-3.png';
+import CollectionImage4 from '@/assets/images/collection/collection-4.png';
 
 export const collectionList = [
   {
     icon: CollectionImage1,
-    name: 'Iron flower',
+    name: 'Dragon Strike',
     value: 'iron-flower',
   },
   {
     icon: CollectionImage2,
-    name: 'Creative web',
+    name: 'Champions Arena',
     value: 'creative-web',
   },
   {
     icon: CollectionImage3,
-    name: 'Art in binary',
+    name: 'Eternal Paradox',
     value: 'art-in-binary',
   },
   {
     icon: CollectionImage4,
-    name: 'Sound of wave',
+    name: 'Mirandus',
     value: 'sound-of-wave',
-  },
-  {
-    icon: CollectionImage2,
-    name: 'Pixel art',
-    value: 'pixel-art',
   },
 ];
 
