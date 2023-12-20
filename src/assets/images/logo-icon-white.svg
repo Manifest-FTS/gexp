@@ -1,0 +1,17 @@
+<svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 133 133" width="133" height="133">
+	<title>logo-icon-svg</title>
+	<style>
+		.s0 { fill: #ffffff } 
+		.s1 { fill: #000000 } 
+	</style>
+	<g id="Layer">
+		<g id="Layer">
+			<g id="Layer">
+				<path id="Layer" class="s0" d="m27.6 26h-12.3v8.2h12.3zm102.5 24.6v-24.6h-94.3v8.2h8.1v8.3h-16.3v8.1h20.5v8.3h4.1v8.2h-16.4v8.1h16.4v8.3h-16.4v8.2h8.1v8.1h4.2v8.3h82v-49.2h-41v16.3h8.2v8.3h-16.4v-32.9zm-110.8-8.1h-16.4v8.1h16.4zm8.2 16.4h-8.2v8.2h8.2zm0 16.4h-24.6v8.2h24.6zm-11.9 16.5v8.2h12.3v-8.2zm24.7 8.2h-8.3v8.2h8.3z"/>
+				<path id="Layer" class="s1" d="m138.4 26v82h75.8v-24.6h-42.9v-8.2h26.4v-16.4h-26.4v-8.2h42.9v-24.6z"/>
+				<path id="Layer" class="s1" d="m234.8 67.1l-12.3 12.3v28.6h32.9v-20.5l8.1-8.1 8.3 8.1v20.5h32.8v-28.6l-12.3-12.3 12.3-12.4v-28.7h-32.8v20.5l-8.3 8.2-8.1-8.2v-20.5h-32.9v28.7z"/>
+				<path id="Layer" fill-rule="evenodd" class="s1" d="m313 26h82.1v57.4h-49.3v24.6h-32.8zm32.8 32.9h16.4v-8.2h-16.4z"/>
+			</g>
+		</g>
+	</g>
+</svg>
