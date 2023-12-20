@@ -6,7 +6,7 @@ export default function Preview() {
   const { openModal } = useModal();
 
   return (
-    <div className="flex lg:hidden items-center justify-between">
+    <div className="flex items-center justify-between">
       <Button
         size="small"
         variant="ghost"

@@ -1,4 +1,5 @@
 const routes = {
+  create: '/create-listing',
   home: '/',
   transactions: '/explorer/tx',
   blocks: '/explorer/blocks',
