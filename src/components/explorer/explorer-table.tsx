@@ -67,7 +67,7 @@ export default function ExplorerTable() {
             </thead>
             <tbody
               {...tableInstance.getTableBodyProps()}
-              className="bg-white divide-y divide-gray-200"
+              className="bg-white dark:bg-light-dark divide-y divide-gray-200"
             >
               {tableInstance.rows.map((row, idx) => {
                 tableInstance.prepareRow(row);
