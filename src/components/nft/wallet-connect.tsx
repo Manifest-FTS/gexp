@@ -90,7 +90,7 @@ export default function WalletConnect({
             </Menu>
           </div>
 
-          <ActiveLink href="/create-nft" className={cn(anchorClassName)}>
+          <ActiveLink href="/create-listing" className={cn(anchorClassName)}>
             <Button
               className={cn('shadow-main hover:shadow-large', btnClassName)}
             >
