@@ -36,9 +36,9 @@ export const defaultMenuItems = [
         href: routes.nfts,
       },
       {
-        name: 'NFT Details',
+        name: 'Create Listing',
         icon: <DiskIcon />,
-        href: routes.nfts,
+        href: routes.create,
       },
     ],
   },
