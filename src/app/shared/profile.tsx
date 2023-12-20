@@ -7,7 +7,7 @@ import { authorData } from '@/data/static/author';
 const AuthorProfilePage = () => {
   return (
     <>
-      <div className="relative h-36 w-full overflow-hidden rounded-lg sm:h-44 md:h-64 xl:h-80 2xl:h-96 3xl:h-[448px]">
+      <div className="relative h-36 w-full overflow-hidden rounded-lg sm:h-33 md:h-44 xl:h-66 2xl:h-77 3xl:h-[333px]">
         <Image
           src={authorData?.cover_image?.thumbnail}
           quality={100}
