@@ -11,7 +11,7 @@ import User5 from '@/assets/images/avatar/6.png';
 
 export const authorData = {
   id: 157896,
-  name: 'Spy Thirtythree',
+  name: 'Kevin W.',
   user_name: 'AtlanteanX',
   wallet_key:
     '0x9Af568442868356c7aE834A47614600002545476555555555772d9F5B87e9b',
@@ -32,8 +32,8 @@ export const authorData = {
   followed_by: [
     {
       id: 1,
-      name: 'Thirtythree',
-      slug: 'thirtythree',
+      name: 'AtlanteanX',
+      slug: 'atlanteanx',
       avatar: {
         id: 1,
         thumbnail: User1,
@@ -42,8 +42,8 @@ export const authorData = {
     },
     {
       id: 2,
-      name: 'Thirtythree',
-      slug: 'thirtythree',
+      name: 'Burgundy',
+      slug: 'burgundy',
       avatar: {
         id: 1,
         thumbnail: User2,
@@ -52,8 +52,8 @@ export const authorData = {
     },
     {
       id: 3,
-      name: 'Thirtythree',
-      slug: 'thirtythree',
+      name: 'DubstepRod',
+      slug: 'dubsteprod',
       avatar: {
         id: 1,
         thumbnail: User3,
@@ -62,8 +62,8 @@ export const authorData = {
     },
     {
       id: 4,
-      name: 'Thirtythree',
-      slug: 'thirtythree',
+      name: 'DrWookie',
+      slug: 'drwookie',
       avatar: {
         id: 1,
         thumbnail: User4,
@@ -72,8 +72,8 @@ export const authorData = {
     },
     {
       id: 5,
-      name: 'Thirtythree',
-      slug: 'thirtythree',
+      name: 'BitBender',
+      slug: 'bitbender',
       avatar: {
         id: 1,
         thumbnail: User5,
@@ -84,33 +84,33 @@ export const authorData = {
   socials: [
     {
       id: 1,
-      title: '@dontbesovasya',
-      link: 'https://dontbesovasya.io',
+      title: '@mySocial',
+      link: 'https://somelink.io',
       icon: <Twitter className="w-4" />,
     },
     {
       id: 2,
-      title: '@dontbesovasya',
-      link: 'https://dontbesovasya.io',
+      title: '@mySocial',
+      link: 'https://somelink.io',
       icon: <Facebook className="w-4" />,
     },
     {
       id: 3,
-      title: '@dontbesovasya',
-      link: 'https://dontbesovasya.io',
+      title: '@mySocial',
+      link: 'https://somelink.io',
       icon: <Instagram className="w-4" />,
     },
   ],
   links: [
     {
       id: 1,
-      title: '@dontbesovasya',
-      link: 'https://dontbesovasya.io',
+      title: '@mySocial',
+      link: 'https://somelink.io',
     },
     {
       id: 2,
-      title: '@dontbesovasya',
-      link: 'https://dontbesovasya.io',
+      title: '@mySocial',
+      link: 'https://somelink.io',
     },
   ],
 };
