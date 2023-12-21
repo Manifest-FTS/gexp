@@ -48,7 +48,7 @@ function CryptocurrencyAccordionTable({
     useSortBy,
     useResizeColumns,
     useFlexLayout,
-    usePagination
+    usePagination,
   );
   const { pageIndex } = state;
   const { globalFilter } = state;
@@ -65,7 +65,7 @@ function CryptocurrencyAccordionTable({
               }`}
             >
               <h2 className="shrink-0 pl-[10px] text-lg font-medium uppercase text-black dark:text-white sm:text-xl md:pl-0 2xl:text-xl 3xl:text-2xl">
-                Cryptocurrency Prices
+                Galachain Transactions
               </h2>
               <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter} />
             </div>
@@ -74,7 +74,7 @@ function CryptocurrencyAccordionTable({
             <div className="relative z-10">
               <table
                 {...getTableProps()}
-                className="-mt-[2px] w-full border-separate border-0"
+                className="my-custom-table -mt-[2px] w-full border-separate border-0"
               >
                 <thead className="pricing-table-head block bg-white px-[10px] text-sm text-gray-500 dark:bg-light-dark dark:text-gray-300 md:!px-6">
                   {headerGroups.map((headerGroup, idx) => (
@@ -86,7 +86,7 @@ function CryptocurrencyAccordionTable({
                       {headerGroup.headers.map((column, idx) => (
                         <th
                           {...column.getHeaderProps(
-                            column.getSortByToggleProps()
+                            column.getSortByToggleProps(),
                           )}
                           key={idx}
                           className={`group px-3 py-5 font-normal first:!w-7`}
@@ -136,7 +136,7 @@ function CryptocurrencyAccordionTable({
                             <td
                               {...cell.getCellProps()}
                               key={idx}
-                              className={`flex h-[50px] items-center px-3 tracking-[1px]`}
+                              className={` h-[50px] items-center px-3 tracking-[1px]`}
                             >
                               {cell.render('Cell')}
                             </td>

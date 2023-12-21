@@ -301,3 +301,30 @@ input.reset-password-pin-code[type='number'] {
 .coin-list-scrollbar::-webkit-scrollbar {
   @apply hidden;
 }
+
+
+
+
+.my-custom-table {
+  border: 1px solid red;
+}
+
+.my-custom-table th, .my-custom-table td {
+  border: 1px solid red;
+}
+
+.my-custom-table2 {
+  border: 1px solid blue;
+}
+
+.my-custom-table2 th, .my-custom-table2 td {
+  border: 1px solid blue;
+}
+
+.my-custom-table3 {
+  border: 1px solid green;
+}
+
+.my-custom-table3 th, .my-custom-table3 td {
+  border: 1px solid green;
+}

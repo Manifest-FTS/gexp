@@ -48,7 +48,7 @@ function CryptocurrencyDrawerTable({
     useSortBy,
     useResizeColumns,
     useFlexLayout,
-    usePagination
+    usePagination,
   );
   const { pageIndex } = state;
   const { globalFilter } = state;
@@ -78,7 +78,7 @@ function CryptocurrencyDrawerTable({
               <div>
                 <table
                   {...getTableProps()}
-                  className="-mt-[2px] w-full border-separate border-0"
+                  className="my-custom-table2 -mt-[2px] w-full border-separate border-0"
                 >
                   <thead className="pricing-table-head block bg-white text-sm text-gray-500 dark:bg-light-dark dark:text-gray-300 md:!px-6">
                     {headerGroups.map((headerGroup, idx) => (
@@ -90,7 +90,7 @@ function CryptocurrencyDrawerTable({
                         {headerGroup.headers.map((column, idx) => (
                           <th
                             {...column.getHeaderProps(
-                              column.getSortByToggleProps()
+                              column.getSortByToggleProps(),
                             )}
                             key={idx}
                             className="group px-3 py-5 font-normal first:!w-7"

@@ -12,6 +12,7 @@ import SettingsDrawer from '@/components/settings/settings-drawer';
 import 'overlayscrollbars/overlayscrollbars.css';
 import 'swiper/css';
 import 'swiper/css/pagination';
+import 'swiper/element/css/autoplay';
 import '@/assets/css/scrollbar.css';
 import '@/assets/css/globals.css';
 import '@/assets/css/range-slider.css';

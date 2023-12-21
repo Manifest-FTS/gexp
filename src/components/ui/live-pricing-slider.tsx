@@ -3,7 +3,7 @@
 import { ArrowUp } from '@/components/icons/arrow-up';
 import { ResponsiveContainer, AreaChart, Area } from 'recharts';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { A11y, Pagination } from 'swiper/modules';
+import { A11y, Autoplay, Pagination } from 'swiper/modules';
 import { useBreakpoint } from '@/lib/hooks/use-breakpoint';
 import cn from 'classnames';
 import { priceFeedData } from '@/data/static/price-feed';
@@ -147,13 +147,22 @@ export default function LivePricingSlider({ limits }: { limits: number }) {
 
   return (
     <Swiper
-      modules={[Pagination, A11y]}
+      modules={[Autoplay, A11y]}
       spaceBetween={24}
       slidesPerView={1}
       breakpoints={sliderBreakPoints}
-      pagination={{ clickable: true }}
       observer={true}
       dir="ltr"
+      autoplay={{
+        delay: 0,
+        disableOnInteraction: false,
+        reverseDirection: true,
+        stopOnLastSlide: false,
+      }}
+      freeMode={true}
+      speed={4000}
+      loop={true}
+      grabCursor={true}
       className="w-full pb-10"
     >
       {priceFeedData.map((item) => (

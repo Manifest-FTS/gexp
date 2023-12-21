@@ -57,7 +57,7 @@ function InvestmentAccordionTable({
           <div className="relative z-10">
             <table
               {...getTableProps()}
-              className="-mt-[2px] w-full border-separate border-0"
+              className="my-custom-table3 -mt-[2px] w-full border-separate border-0"
             >
               <thead className="block bg-white text-sm text-gray-500 dark:bg-light-dark dark:text-gray-300">
                 {headerGroups.map((headerGroup, idx) => (
