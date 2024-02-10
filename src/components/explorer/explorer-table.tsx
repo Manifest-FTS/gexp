@@ -14,16 +14,12 @@ import {
   TransactionsColumns,
 } from '@/data/static/explorer-data';
 import Button from '@/components/ui/button'; // Assuming this is the correct import path
+import { useBlockList, useTransactionList } from '@/hooks/useCoin';
+import Loader from '../ui/loader';
 
 export default function ExplorerTable() {
-  const latestBlocks = React.useMemo(
-    () => LatestBlocksData.slice(0, 10),
-    [LatestBlocksData],
-  );
-  const latestTransactions = React.useMemo(
-    () => LatestTransactionsData.slice(0, 9),
-    [LatestTransactionsData],
-  );
+  const { latestBlocks, loadingBlocks } = useBlockList(15, 1);
+  const { latestTransaction, loadingTransactions } = useTransactionList(15, 1);
 
   const blocksTableInstance = useTable({
     columns: BlocksColumns,
@@ -32,23 +28,31 @@ export default function ExplorerTable() {
 
   const transactionsTableInstance = useTable({
     columns: TransactionsColumns,
-    data: latestTransactions,
+    data: latestTransaction,
   });
 
-  const renderTable = (tableInstance, title) => (
-    <div className="rounded-lg bg-white dark:bg-light-dark">
+  const renderTable = (isLoading, tableInstance, title, url) => (
+    <div className="bg-white rounded-lg dark:bg-light-dark">
       <div className="px-4 pt-6 md:px-8 md:pt-8">
-        <div className="flex flex-col items-center justify-between border-b border-dashed border-gray-200 pb-5 dark:border-gray-700 md:flex-row">
-          <h2 className="text-lg font-medium uppercase text-black dark:text-white md:text-2xl">
+        <div className="flex flex-col items-center justify-between pb-5 border-b border-gray-200 border-dashed dark:border-gray-700 md:flex-row">
+          <h2 className="text-lg font-medium text-black uppercase dark:text-white md:text-2xl">
             {title}
           </h2>
         </div>
       </div>
       <div className="px-0.5">
-        <Scrollbar style={{ width: '100%' }} autoHide="never">
+        <Scrollbar
+          style={{ width: '100%', minHeight: 200, position: 'relative' }}
+          autoHide="never"
+        >
+          {isLoading && (
+            <div className="absolute top-[50%] left-[45%]">
+              <Loader />
+            </div>
+          )}
           <table
             {...tableInstance.getTableProps()}
-            className="w-full border-separate border-0"
+            className="w-full border-0 border-separate"
           >
             <thead className="text-sm text-gray-500 dark:text-gray-300">
               {tableInstance.headerGroups.map((headerGroup, idx) => (
@@ -57,7 +61,7 @@ export default function ExplorerTable() {
                     <th
                       {...column.getHeaderProps()}
                       key={idx}
-                      className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                      className="px-4 py-2 text-xs font-medium tracking-wider text-left text-gray-500 uppercase"
                     >
                       {column.render('Header')}
                     </th>
@@ -67,7 +71,7 @@ export default function ExplorerTable() {
             </thead>
             <tbody
               {...tableInstance.getTableBodyProps()}
-              className="bg-white dark:bg-light-dark divide-y divide-gray-200"
+              className="bg-white divide-y divide-gray-200 dark:bg-light-dark"
             >
               {tableInstance.rows.map((row, idx) => {
                 tableInstance.prepareRow(row);
@@ -87,26 +91,38 @@ export default function ExplorerTable() {
               })}
             </tbody>
           </table>
-          <div className="text-center py-4">
+        </Scrollbar>
+        <div className="py-4 text-center">
+          <a href={url}>
             <Button size="large" shape="rounded" className="uppercase">
               View All {title}
             </Button>
-          </div>
-        </Scrollbar>
+          </a>
+        </div>
       </div>
     </div>
   );
 
   return (
-    <div className="flex w-full flex-col divide-y divide-gray-200 md:flex-row md:divide-y-0 md:divide-x">
+    <div className="flex flex-col w-full divide-y divide-gray-200 md:flex-row md:divide-y-0 md:divide-x">
       <div className="min-w-0 overflow-x-auto md:w-1/2">
         <Scrollbar>
-          {renderTable(blocksTableInstance, 'Latest Blocks')}
+          {renderTable(
+            loadingBlocks,
+            blocksTableInstance,
+            'Latest Blocks',
+            '/explorer/blocks',
+          )}
         </Scrollbar>
       </div>
       <div className="min-w-0 overflow-x-auto md:w-1/2">
         <Scrollbar>
-          {renderTable(transactionsTableInstance, 'Latest Transactions')}
+          {renderTable(
+            loadingTransactions,
+            transactionsTableInstance,
+            'Latest Transactions',
+            '/explorer/tx',
+          )}
         </Scrollbar>
       </div>
     </div>

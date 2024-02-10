@@ -1,12 +1,17 @@
 /* eslint-disable import/no-anonymous-default-export */
 import { API_ENDPOINTS } from '@/data/utils/endpoints';
 import type {
+  APIResponse,
+  BlockListResponse,
+  ChannelListResponse,
   CoinPaginator,
   CoinPrice,
   CryptoQueryOptions,
+  GetLatestParams,
   GetParams,
   Settings,
   SettingsQueryOptions,
+  TransactionListResponse,
 } from '@/types';
 import { HttpClient } from '@/data/utils/client';
 
@@ -26,10 +31,26 @@ class client {
       HttpClient.get<CoinPrice>(`${API_ENDPOINTS.PRICING}/${id}`),
   };
 
+  latest = {
+    getBlockList: ({ limit, page }: GetLatestParams) =>
+      HttpClient.get<BlockListResponse>(
+        `${API_ENDPOINTS.BLOCK_LIST}?limit=${limit}&page=${page}`,
+      ),
+    getTransactionList: ({ limit, page }: GetLatestParams) =>
+      HttpClient.get<TransactionListResponse>(
+        `${API_ENDPOINTS.TRANSACTION_LIST}?limit=${limit}&page=${page}`,
+      ),
+  };
+
+  channel = {
+    get: () =>
+      HttpClient.get<ChannelListResponse>(`${API_ENDPOINTS.CHANNEL_LIST}`),
+  };
+
   marketChart = {
     get: ({ id }: GetParams) =>
       HttpClient.get<CoinPrice>(
-        `${API_ENDPOINTS.PRICING}/${id}/market_chart?vs_currency=usd&days=30`
+        `${API_ENDPOINTS.PRICING}/${id}/market_chart?vs_currency=usd&days=30`,
       ),
   };
 

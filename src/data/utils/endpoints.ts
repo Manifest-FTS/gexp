@@ -8,6 +8,9 @@ export const API_ENDPOINTS = {
   SETTINGS: '/settings',
   MARKETS: '/markets',
   PRICING: '/pricing',
+  BLOCK_LIST: '/block/getBlockList',
+  TRANSACTION_LIST: '/transaction/getTransactionList',
+  CHANNEL_LIST: '/channel/getChannelList',
   // PRICING: 'https://api.coingecko.com/api/v3/coins',
   // MARKETS: 'https://api.coingecko.com/api/v3/coins/markets',
 };

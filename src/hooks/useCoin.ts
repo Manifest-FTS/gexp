@@ -1,13 +1,21 @@
 import client from '@/data/utils';
 import { API_ENDPOINTS } from '@/data/utils/endpoints';
-import { CoinPaginator, CoinPrice, CryptoQueryOptions } from '@/types';
+import {
+  APIResponse,
+  BlockListResponse,
+  ChannelListResponse,
+  CoinPaginator,
+  CoinPrice,
+  CryptoQueryOptions,
+  TransactionListResponse,
+} from '@/types';
 import type { UseInfiniteQueryOptions } from 'react-query';
 import { useRouter } from 'next/router';
 import { useQuery, useInfiniteQuery } from 'react-query';
 
 export function useCoins(
   options?: Partial<CryptoQueryOptions>,
-  config?: UseInfiniteQueryOptions<CoinPaginator, Error>
+  config?: UseInfiniteQueryOptions<CoinPaginator, Error>,
 ) {
   const { locale } = useRouter();
 
@@ -32,7 +40,7 @@ export function useCoins(
       ...config,
       getNextPageParam: ({ current_page, last_page }) =>
         last_page > current_page && { page: current_page + 1 },
-    }
+    },
   );
 
   function handleLoadMore() {
@@ -60,7 +68,7 @@ export function useCoin(id: string) {
 
   const { data, isLoading, error } = useQuery<CoinPrice, Error>(
     [API_ENDPOINTS.PRICING, { id, language }],
-    () => client.coins.get({ id, language })
+    () => client.coins.get({ id, language }),
   );
 
   return {
@@ -75,7 +83,7 @@ export function useMarketChart(id: string) {
 
   const { data, isLoading, error } = useQuery<CoinPrice, Error>(
     [API_ENDPOINTS.PRICING, { id, language }],
-    () => client.marketChart.get({ id, language })
+    () => client.marketChart.get({ id, language }),
   );
 
   return {
@@ -83,4 +91,39 @@ export function useMarketChart(id: string) {
     isLoading,
     error,
   };
+}
+
+export function useBlockList(limit: number, page: number) {
+  const { data, isLoading, error } = useQuery<BlockListResponse, Error>(
+    [API_ENDPOINTS.BLOCK_LIST, { limit, page }],
+    () => client.latest.getBlockList({ limit, page }),
+  );
+
+  return {
+    latestBlocks: data?.data.data || [],
+    loadingBlocks: isLoading,
+    error,
+  };
+}
+
+export function useTransactionList(limit: number, page: number) {
+  const { data, isLoading, error } = useQuery<TransactionListResponse, Error>(
+    [API_ENDPOINTS.TRANSACTION_LIST, { limit, page }],
+    () => client.latest.getTransactionList({ limit, page }),
+  );
+
+  return {
+    latestTransaction: data?.data.data || [],
+    loadingTransactions: isLoading,
+    error,
+  };
+}
+
+export function useChannelList() {
+  const { data } = useQuery<ChannelListResponse, Error>(
+    [API_ENDPOINTS.CHANNEL_LIST],
+    () => client.channel.get(),
+  );
+
+  return data?.data;
 }

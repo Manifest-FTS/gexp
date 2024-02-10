@@ -40,7 +40,7 @@ export class HttpClient {
       .map(([k, v]) =>
         ['type', 'categories', 'id', 'name'].includes(k)
           ? `${k}.slug:${v}`
-          : `${k}:${v}`
+          : `${k}:${v}`,
       )
       .join(';');
   }
