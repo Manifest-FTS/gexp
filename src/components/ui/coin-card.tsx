@@ -5,6 +5,7 @@ import { ArrowUp } from '@/components/icons/arrow-up';
 import { Scrollbar, A11y } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { StaticImageData } from 'next/image';
+import { useBlockList, useTokenList } from '@/hooks/useCoin';
 
 type CoinCardProps = {
   id: string;
@@ -14,7 +15,6 @@ type CoinCardProps = {
   balance: string;
   usdBalance: string;
   change: string;
-  isChangePositive: boolean;
   color?: string;
 };
 
@@ -25,7 +25,6 @@ export function CoinCard({
   balance,
   usdBalance,
   change,
-  isChangePositive,
   color = '#FDEDD4',
 }: CoinCardProps) {
   return (
@@ -45,56 +44,50 @@ export function CoinCard({
       </div>
       <div className="flex items-center justify-between text-xs font-medium 2xl:text-sm">
         <span className="tracking-wider text-gray-600">{usdBalance} USD</span>
-        <span
+        {/* <span
           className={`flex items-center  ${
-            isChangePositive ? 'text-green-500' : 'text-red-500'
+            change.includes('+') ? 'text-green-500' : 'text-red-500'
           }`}
         >
           <span
             className={`ltr:mr-2 rtl:ml-2 ${
-              !isChangePositive ? 'rotate-180' : ''
+              !change.includes('+') ? 'rotate-180' : ''
             }`}
           >
             <ArrowUp />
           </span>
           {change}
-        </span>
+        </span> */}
       </div>
     </div>
   );
 }
 
-interface CoinSliderProps {
-  coins: CoinCardProps[];
-}
+const sliderBreakPoints = {
+  640: {
+    slidesPerView: 1,
+    spaceBetween: 20,
+  },
+  1024: {
+    slidesPerView: 2,
+    spaceBetween: 24,
+  },
+  1280: {
+    slidesPerView: 2,
+    spaceBetween: 24,
+  },
+  1536: {
+    slidesPerView: 2,
+    spaceBetween: 24,
+  },
+  1600: {
+    slidesPerView: 34,
+    spaceBetween: 24,
+  },
+};
 
-export default function CoinSlider({ coins }: CoinSliderProps) {
-  const sliderBreakPoints = {
-    640: {
-      slidesPerView: 1,
-      spaceBetween: 20,
-    },
-    1024: {
-      slidesPerView: 2,
-      spaceBetween: 24,
-    },
-    1280: {
-      slidesPerView: 2,
-      spaceBetween: 24,
-    },
-    1536: {
-      slidesPerView: 2,
-      spaceBetween: 24,
-    },
-    1700: {
-      slidesPerView: 3,
-      spaceBetween: 24,
-    },
-    2200: {
-      slidesPerView: 4,
-      spaceBetween: 24,
-    },
-  };
+export default function CoinSlider() {
+  const { tokens } = useTokenList();
 
   return (
     <div>
@@ -108,7 +101,7 @@ export default function CoinSlider({ coins }: CoinSliderProps) {
         dir="ltr"
         className="dark:[&_.swiper-scrollbar_>_.swiper-scrollbar-drag]:bg-body/50"
       >
-        {coins.map((coin) => (
+        {tokens.map((coin) => (
           <SwiperSlide key={coin.id}>
             <CoinCard
               id={coin.id}
@@ -116,9 +109,8 @@ export default function CoinSlider({ coins }: CoinSliderProps) {
               symbol={coin.symbol}
               logo={coin.logo}
               balance={coin.balance}
-              usdBalance={coin.usdBalance}
+              usdBalance={coin.usd}
               change={coin.change}
-              isChangePositive={coin.isChangePositive}
               color={coin.color}
             />
           </SwiperSlide>

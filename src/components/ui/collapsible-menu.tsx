@@ -10,6 +10,7 @@ import { ChevronDown } from '@/components/icons/chevron-down';
 
 type MenuItemProps = {
   name?: string;
+
   icon: React.ReactNode;
   href: string;
   dropdownItems?: DropdownItemProps[];
@@ -19,6 +20,7 @@ type MenuItemProps = {
 type DropdownItemProps = {
   name: string;
   href: string;
+  disable: boolean;
 };
 
 export function MenuItem({
@@ -89,10 +91,15 @@ export function MenuItem({
                 <li className="first:pt-2" key={index}>
                   <ActiveLink
                     href={item.href}
-                    className="flex items-center rounded-lg p-3 text-sm text-gray-500 transition-all before:h-1 before:w-1 before:rounded-full before:bg-gray-500 hover:text-brand ltr:pl-6 before:ltr:mr-5 rtl:pr-6 before:rtl:ml-5 dark:hover:text-white"
+                    onClick={(e) => item.disable && e.preventDefault()}
+                    className="flex flex-wrap items-center p-3 text-sm text-gray-500 transition-all rounded-lg before:h-1 before:w-1 before:rounded-full before:bg-gray-500 hover:text-brand ltr:pl-6 before:ltr:mr-5 rtl:pr-6 before:rtl:ml-5 dark:hover:text-white"
                     activeClassName="!text-brand dark:!text-white dark:before:!bg-white before:!bg-brand before:!w-2 before:!h-2 before:-ml-0.5 before:ltr:!mr-[18px] before:rtl:!ml-[18px] !font-medium"
                   >
                     {item.name}
+
+                    {item.disable && (
+                      <p className="text-[12px] ml-[1px]"> (coming soon)</p>
+                    )}
                   </ActiveLink>
                 </li>
               ))}

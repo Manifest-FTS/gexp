@@ -7,7 +7,6 @@ import ComparisonChart from '@/components/ui/chats/retro-comparision-chart';
 import TopPools from '@/components/ui/top-pools';
 import TransactionTable from '@/components/transaction/transaction-table';
 import TopCurrencyTable from '@/components/top-currency/currency-table';
-import { coinSlideData } from '@/data/static/coin-slide-data';
 import TransactCoin from '@/components/ui/transact-coin';
 import Avatar from '@/components/ui/avatar';
 import TopupButton from '@/components/ui/topup-button';
@@ -21,14 +20,13 @@ export default function ClassicScreen() {
     <>
       <div className="flex flex-wrap mb-8">
         <div className="mb-8 w-full sm:mb-0  dark:[&_.swiper-scrollbar>_.swiper-scrollbar-drag]:bg-body/50">
-          {/* <CoinSlider coins={coinSlideData} /> */}
           <ExplorerHero />
         </div>
       </div>
 
       <div className="flex flex-wrap">
         <div className="mb-8 w-full sm:mb-0  dark:[&_.swiper-scrollbar>_.swiper-scrollbar-drag]:bg-body/50">
-          <CoinSlider coins={coinSlideData} />
+          <CoinSlider />
         </div>
       </div>
 

@@ -25,6 +25,7 @@ const sideBarMenuItems = defaultMenuItems.map((item) => ({
   ...(item.dropdownItems && {
     dropdownItems: item?.dropdownItems?.map((dropdownItem: any) => ({
       name: dropdownItem.name,
+      disable: dropdownItem?.disable ?? false,
       ...(dropdownItem?.icon && { icon: dropdownItem.icon }),
       href: dropdownItem.href, // Use dropdownItem.href directly
     })),
@@ -125,7 +126,7 @@ export default function Sidebar({ className }: { className?: string }) {
           )}
         </div>
       </div>
-      <div className={cn('sticky bottom-5 mt-3 2xl:mt-12', open && 'px-8')}>
+      {/* <div className={cn('sticky bottom-5 mt-3 2xl:mt-12', open && 'px-8')}>
         {!open ? (
           <motion.div
             initial={{ x: 50, y: -5 }}
@@ -133,7 +134,7 @@ export default function Sidebar({ className }: { className?: string }) {
               x: 0,
               y: 0,
             }}
-            className="cursor-pointer pb-2"
+            className="pb-2 cursor-pointer"
             onClick={() => router.push(routes.profile)}
           >
             <AuthorCard image={AuthorImage} />
@@ -158,7 +159,7 @@ export default function Sidebar({ className }: { className?: string }) {
             </motion.div>
           </div>
         )}
-      </div>
+      </div> */}
     </aside>
   );
 }

@@ -42,7 +42,7 @@ export default function ExplorerTable() {
       </div>
       <div className="px-0.5">
         <Scrollbar
-          style={{ width: '100%', minHeight: 200, position: 'relative' }}
+          style={{ width: '100%', minHeight: '35vh', position: 'relative' }}
           autoHide="never"
         >
           {isLoading && (

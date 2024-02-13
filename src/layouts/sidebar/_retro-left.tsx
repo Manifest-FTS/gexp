@@ -25,6 +25,7 @@ export default function Sidebar({ className }: { className?: string }) {
     ...(item.dropdownItems && {
       dropdownItems: item?.dropdownItems?.map((dropdownItem: any) => ({
         name: dropdownItem.name,
+        disable: dropdownItem?.disable ?? false,
         ...(dropdownItem?.icon && { icon: dropdownItem.icon }),
         href:
           item.name === 'Authentication'
@@ -41,7 +42,7 @@ export default function Sidebar({ className }: { className?: string }) {
         className,
       )}
     >
-      <div className="relative flex h-24 items-center justify-between overflow-hidden px-6 py-4 2xl:px-8">
+      <div className="relative flex items-center justify-between h-24 px-6 py-4 overflow-hidden 2xl:px-8">
         <Logo />
         <div className="md:hidden">
           <Button
@@ -83,7 +84,7 @@ export default function Sidebar({ className }: { className?: string }) {
             <h2 className="mb-7 mt-5 text-center text-[20px] font-semibold leading-8 text-light-dark dark:text-white">
               Explore the new Blockchain System
             </h2>
-            <button className="h-12 rounded-lg bg-brand text-white">
+            <button className="h-12 text-white rounded-lg bg-brand">
               Try Now{' '}
             </button>
           </div>

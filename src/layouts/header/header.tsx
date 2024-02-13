@@ -19,7 +19,7 @@ function NotificationButton() {
     isMounted && (
       <ActiveLink href={routes.notification}>
         <div className="relative flex h-10 w-10 shrink-0 cursor-pointer items-center justify-center rounded-full border border-gray-100 bg-white text-brand shadow-main transition-all hover:-translate-y-0.5 hover:shadow-large focus:-translate-y-0.5 focus:shadow-large focus:outline-none dark:border-gray-700 dark:bg-light-dark dark:text-white sm:h-12 sm:w-12">
-          <FlashIcon className="h-auto w-3 sm:w-auto" />
+          <FlashIcon className="w-3 h-auto sm:w-auto" />
           <span className="absolute right-0 top-0 h-2.5 w-2.5 rounded-full bg-brand shadow-light dark:bg-slate-50 sm:h-3 sm:w-3" />
         </div>
       </ActiveLink>
@@ -29,8 +29,8 @@ function NotificationButton() {
 
 function HeaderRightArea() {
   return (
-    <div className="relative order-last flex shrink-0 items-center gap-4 sm:gap-6 lg:gap-8">
-      <NotificationButton />
+    <div className="relative flex items-center order-last gap-4 shrink-0 sm:gap-6 lg:gap-8">
+      {/* <NotificationButton /> */}
       <WalletConnect />
     </div>
   );
@@ -51,7 +51,7 @@ export function RetroHeader({ className }: { className?: string }) {
         className,
       )}
     >
-      <div className="flex h-full items-center justify-between px-4 sm:px-6 lg:px-8 3xl:px-10">
+      <div className="flex items-center justify-between h-full px-4 sm:px-6 lg:px-8 3xl:px-10">
         <div className="flex items-center">
           <div
             onClick={() => router.push(routes.home)}
@@ -59,7 +59,7 @@ export function RetroHeader({ className }: { className?: string }) {
           >
             <LogoIcon />
           </div>
-          <div className="mx-2 block sm:mx-4 xl:hidden">
+          <div className="block mx-2 sm:mx-4 xl:hidden">
             <Hamburger
               isOpen={false}
               variant="transparent"
@@ -93,7 +93,7 @@ export function ClassicHeader({ className }: { className?: string }) {
         className,
       )}
     >
-      <div className="flex h-full items-center justify-between px-4 sm:px-6 lg:px-8 3xl:px-10">
+      <div className="flex items-center justify-between h-full px-4 sm:px-6 lg:px-8 3xl:px-10">
         <div className="flex items-center">
           <div
             onClick={() => router.push(routes.home)}
@@ -101,7 +101,7 @@ export function ClassicHeader({ className }: { className?: string }) {
           >
             <LogoIcon />
           </div>
-          <div className="mx-2 block sm:mx-4 xl:hidden">
+          <div className="block mx-2 sm:mx-4 xl:hidden">
             <Hamburger
               isOpen={false}
               variant="transparent"
@@ -135,7 +135,7 @@ export default function Header({ className }: { className?: string }) {
         className,
       )}
     >
-      <div className="flex h-full items-center justify-between px-4 sm:px-6 lg:px-8 3xl:px-10">
+      <div className="flex items-center justify-between h-full px-4 sm:px-6 lg:px-8 3xl:px-10">
         <div className="flex items-center">
           <div
             onClick={() => router.push(routes.home)}
@@ -143,7 +143,7 @@ export default function Header({ className }: { className?: string }) {
           >
             <LogoIcon />
           </div>
-          <div className="mx-2 block sm:mx-4 xl:hidden">
+          <div className="block mx-2 sm:mx-4 xl:hidden">
             <Hamburger
               isOpen={false}
               variant="transparent"

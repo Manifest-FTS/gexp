@@ -35,6 +35,11 @@ export interface GetLatestParams {
   blockNumber?: string;
   channelId?: number;
 }
+export interface GlobalSearchParams {
+  limit: number;
+  offset: number;
+  search: string;
+}
 
 export interface SearchParamOptions {
   rating: string;
@@ -150,6 +155,26 @@ export interface TransactionListResponse
 
 export interface ChannelListResponse extends APIResponse<ChannelData[]> {}
 
+export interface TokenPriceListResponse
+  extends APIResponse<[string, TokenPriceData][]> {}
+
+export interface BlockHourListResponse extends APIResponse<BlockHourData[]> {}
+
+export interface ChannelBlockListResponse
+  extends APIResponse<ChannelBlockData[]> {}
+
+export interface ChannelBlockData {
+  channelId: number;
+  channelName: string;
+  blockCount: string;
+}
+export interface BlockHourData {
+  hour: string;
+  count: string;
+}
+export interface TokenPriceData {
+  usd: string;
+}
 export interface ChannelData {
   channelId: number;
   color: string;
