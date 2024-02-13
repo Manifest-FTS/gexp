@@ -33,13 +33,14 @@ export const defaultMenuItems = [
       {
         name: 'Explore NFTs',
         icon: <CompassIcon />,
+        disable: true,
         href: routes.nfts,
       },
-      {
-        name: 'Create Listing',
-        icon: <DiskIcon />,
-        href: routes.create,
-      },
+      // {
+      //   name: 'Create Listing',
+      //   icon: <DiskIcon />,
+      //   href: routes.create,
+      // },
     ],
   },
 ];

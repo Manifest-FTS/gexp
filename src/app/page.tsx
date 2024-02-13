@@ -1,27 +1,36 @@
 'use client';
-import React from 'react';
+import React, { useEffect } from 'react';
 import CoinSlider from '@/components/ui/coin-card-two';
-import { coinSlideData } from '@/data/static/coin-slide-data';
 import ExplorerHero from '@/components/ui/explorer-hero';
 import ExplorerTable from '@/components/explorer/explorer-table';
+import BlockPieChart from '@/components/ui/chats/block-per-channel';
+import NewBlockBarChart from '@/components/ui/chats/new-block';
 
 export default function Home() {
   return (
     <>
-      <div className="flex flex-wrap mb-8">
-        <div className="mb-8 w-full sm:mb-0  dark:[&_.swiper-scrollbar>_.swiper-scrollbar-drag]:bg-body/50">
-          {/* <CoinSlider coins={coinSlideData} /> */}
+      <div className="flex flex-wrap mb-4">
+        <div className="w-full sm:mb-0  dark:[&_.swiper-scrollbar>_.swiper-scrollbar-drag]:bg-body/50">
           <ExplorerHero />
         </div>
       </div>
-
-      <div className="flex flex-wrap">
-        <div className="mb-8 w-full sm:mb-0  dark:[&_.swiper-scrollbar>_.swiper-scrollbar-drag]:bg-body/50">
-          <CoinSlider coins={coinSlideData} />
+      <div>
+        <div className="flex flex-wrap mb-4">
+          <div className="w-full sm:mb-0  dark:[&_.swiper-scrollbar>_.swiper-scrollbar-drag]:bg-body/50">
+            <CoinSlider />
+          </div>
+        </div>
+        <div className="flex max-md:flex-col gap-4 mb-4">
+          <div className="flex-1 sm:mb-0 dark:[&_.swiper-scrollbar>_.swiper-scrollbar-drag]:bg-body/50">
+            <NewBlockBarChart />
+          </div>
+          <div className="flex-1 sm:mb-0 dark:[&_.swiper-scrollbar>_.swiper-scrollbar-drag]:bg-body/50">
+            <BlockPieChart />
+          </div>
         </div>
       </div>
 
-      <div className="my-8 sm:my-10">
+      <div className="my-4">
         <ExplorerTable />
       </div>
     </>

@@ -29,6 +29,17 @@ export interface GetParams {
   id: string;
   language?: string;
 }
+export interface GetLatestParams {
+  limit: number;
+  page: number;
+  blockNumber?: string;
+  channelId?: number;
+}
+export interface GlobalSearchParams {
+  limit: number;
+  offset: number;
+  search: string;
+}
 
 export interface SearchParamOptions {
   rating: string;
@@ -123,4 +134,75 @@ export interface ContactDetails {
   contact: string;
   location: Location;
   website: string;
+}
+
+export interface APIResponse<T> {
+  status: string;
+  message: string;
+  data: T;
+}
+
+export interface ListResponse<T> {
+  len: number;
+  data: T[];
+}
+
+export interface BlockListResponse
+  extends APIResponse<ListResponse<BlockData>> {}
+
+export interface TransactionListResponse
+  extends APIResponse<ListResponse<TransactionData>> {}
+
+export interface ChannelListResponse extends APIResponse<ChannelData[]> {}
+
+export interface TokenPriceListResponse
+  extends APIResponse<[string, TokenPriceData][]> {}
+
+export interface BlockHourListResponse extends APIResponse<BlockHourData[]> {}
+
+export interface ChannelBlockListResponse
+  extends APIResponse<ChannelBlockData[]> {}
+
+export interface ChannelBlockData {
+  channelId: number;
+  channelName: string;
+  blockCount: string;
+}
+export interface BlockHourData {
+  hour: string;
+  count: string;
+}
+export interface TokenPriceData {
+  usd: string;
+}
+export interface ChannelData {
+  channelId: number;
+  color: string;
+  channelName: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface BlockData {
+  blockNumber: number;
+  channelId: number;
+  txCount: number;
+  executes: string[];
+  created: string;
+  channel: Channel;
+}
+
+export interface TransactionData {
+  txId: string;
+  channelId: number;
+  blockNumber: number;
+  blockType: string;
+  valid: string;
+  created: string;
+  arg: string;
+  channel: Channel;
+}
+
+export interface Channel {
+  channelName: string;
 }

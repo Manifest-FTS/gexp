@@ -28,6 +28,7 @@ export default function DrawerMenu({
     ...(item.dropdownItems && {
       dropdownItems: item?.dropdownItems?.map((dropdownItem: any) => ({
         name: dropdownItem.name,
+        disable: dropdownItem?.disable ?? false,
         ...(dropdownItem?.icon && { icon: dropdownItem.icon }),
         href: routes[dropdownItem.href] || '',
       })),
@@ -36,7 +37,7 @@ export default function DrawerMenu({
 
   return (
     <div className="relative w-full max-w-full bg-white dark:bg-dark xs:w-80">
-      <div className="flex h-24 items-center justify-between overflow-hidden px-6 py-4">
+      <div className="flex items-center justify-between h-24 px-6 py-4 overflow-hidden">
         <Logo />
         <div className="md:hidden">
           <Button
@@ -66,7 +67,7 @@ export default function DrawerMenu({
           </div>
         </div>
       </div>
-      <div className="absolute bottom-4 right-0 z-10 w-full px-6">
+      <div className="absolute right-0 z-10 w-full px-6 bottom-4">
         <WalletConnect anchorClassName="w-full" btnClassName="!w-full !h-11" />
       </div>
     </div>

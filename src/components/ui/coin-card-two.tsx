@@ -5,6 +5,7 @@ import { ArrowUp } from '@/components/icons/arrow-up';
 import { Scrollbar, A11y } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { StaticImageData } from 'next/image';
+import { useTokenList } from '@/hooks/useCoin';
 
 type CoinCardProps = {
   id: string;
@@ -14,7 +15,6 @@ type CoinCardProps = {
   balance: string;
   usdBalance: string;
   change: string;
-  isChangePositive: boolean;
   color?: string;
 };
 
@@ -25,92 +25,81 @@ export function CoinCard({
   balance,
   usdBalance,
   change,
-  isChangePositive,
   color = '#FDEDD4',
 }: CoinCardProps) {
   return (
     <div
-      className="relative flex flex-col rounded-lg px-8 py-8 xl:flex-row xl:py-0 3xl:justify-center "
+      className="relative flex items-center gap-4 px-4 py-4 rounded-lg xl:py-0 "
       style={{ backgroundColor: color }}
     >
-      <div className="relative h-20 w-16 rtl:order-2 lg:h-24 xl:h-32 3xl:h-36">
+      <div className="relative w-16 h-20 rtl:order-2 lg:h-24 xl:h-32 xl:ml-4">
         <Image src={logo} alt={name} fill priority />
       </div>
-      <div className="content mt-2 xl:px-8">
-        <div className="mb-2 mt-8 text-sm font-medium tracking-wider text-gray-900 lg:text-lg 2xl:text-xl 3xl:text-2xl">
+      <div className="flex-1 mt-2 content xl:px-8">
+        <div className="mb-2 text-sm font-medium tracking-wider text-gray-900 lg:text-lg 2xl:text-xl 3xl:text-2xl">
           {balance}
           <span className="uppercase"> {symbol}</span>
         </div>
-        <div className="flex items-center justify-between text-xs font-medium 2xl:text-sm">
+        <div className="flex items-center justify-between gap-4 text-xs font-medium 2xl:text-sm">
           <span className="tracking-wider text-gray-600">{usdBalance} USD</span>
-          <span
+          {/* <span
             className={`flex items-center  ${
-              isChangePositive ? 'text-green-500' : 'text-red-500'
+              change.includes('+') ? 'text-green-500' : 'text-red-500'
             }`}
           >
             <span
               className={`ltr:mr-2 rtl:ml-2 ${
-                !isChangePositive ? 'rotate-180' : ''
+                !change.includes('+') ? 'rotate-180' : ''
               }`}
             >
               <ArrowUp />
             </span>
             {change}
-          </span>
+          </span> */}
         </div>
       </div>
     </div>
   );
 }
 
-interface CoinSliderProps {
-  coins: CoinCardProps[];
-}
+const sliderBreakPoints = {
+  0: {
+    slidesPerView: 1,
+    spaceBetween: 24,
+  },
+  768: {
+    slidesPerView: 2,
+    spaceBetween: 20,
+  },
+  1024: {
+    slidesPerView: 3,
+    spaceBetween: 24,
+  },
+  1280: {
+    slidesPerView: 3,
+    spaceBetween: 24,
+  },
+  1500: {
+    slidesPerView: 4,
+    spaceBetween: 24,
+  },
+};
 
-export default function CoinSlider({ coins }: CoinSliderProps) {
-  const sliderBreakPoints = {
-    0: {
-      slidesPerView: 1,
-      spaceBetween: 24,
-    },
-    768: {
-      slidesPerView: 2,
-      spaceBetween: 20,
-    },
-    1024: {
-      slidesPerView: 3,
-      spaceBetween: 24,
-    },
-    1280: {
-      slidesPerView: 3,
-      spaceBetween: 24,
-    },
-    1400: {
-      slidesPerView: 3,
-      spaceBetween: 24,
-    },
-    1700: {
-      slidesPerView: 3,
-      spaceBetween: 24,
-    },
-    1900: {
-      slidesPerView: 4,
-      spaceBetween: 24,
-    },
-  };
+export default function CoinSlider() {
+  const { tokens } = useTokenList();
 
   return (
     <div>
       <Swiper
         modules={[Scrollbar, A11y]}
-        spaceBetween={24}
+        spaceBetween={16}
         slidesPerView={1}
         scrollbar={{ draggable: true }}
         breakpoints={sliderBreakPoints}
         observer={true}
         dir="ltr"
       >
-        {coins.map((coin) => (
+        {tokens.map((coin) => (
           <SwiperSlide key={coin.id}>
             <CoinCard
               id={coin.id}
@@ -118,9 +107,8 @@ export default function CoinSlider({ coins }: CoinSliderProps) {
               symbol={coin.symbol}
               logo={coin.logo}
               balance={coin.balance}
-              usdBalance={coin.usdBalance}
+              usdBalance={coin.usd}
               change={coin.change}
-              isChangePositive={coin.isChangePositive}
               color={coin.color}
             />
           </SwiperSlide>

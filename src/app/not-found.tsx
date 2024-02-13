@@ -26,11 +26,11 @@ export default function NotFoundPage() {
         </div>
 
         <h2 className="mb-2 mt-5 text-base font-medium uppercase tracking-wide text-gray-900 dark:text-white sm:mb-4 sm:mt-10 sm:text-xl 3xl:mt-12 3xl:text-2xl">
-          Error! No Result Found
+          Sorry, It's a work in progress
         </h2>
         <p className="mb-4 max-w-full text-xs leading-loose tracking-tight text-gray-600 dark:text-gray-400 sm:mb-6 sm:w-[430px] sm:text-sm sm:leading-loose">
-          Sorry, the page you are looking for might be renamed, removed, or
-          might never exist.
+          This page is under construction, we are working to deliver this to
+          you.
         </p>
         <AnchorLink href={{ pathname: routes.home }}>
           <Button shape="rounded">Back to Home</Button>

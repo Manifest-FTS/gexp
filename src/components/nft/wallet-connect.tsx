@@ -1,7 +1,7 @@
 'use client';
 
-import { useWeb3Modal } from '@web3modal/react';
-import { useAccount, useBalance, useDisconnect } from 'wagmi';
+import { useWeb3Modal, useWeb3ModalEvents } from '@web3modal/wagmi/react';
+import { useAccount, useBalance, useDisconnect, useSignMessage } from 'wagmi';
 import cn from 'classnames';
 import Button from '@/components/ui/button';
 import { Menu } from '@/components/ui/menu';
@@ -9,7 +9,12 @@ import { Transition } from '@/components/ui/transition';
 import ActiveLink from '@/components/ui/links/active-link';
 import { ChevronForward } from '@/components/icons/chevron-forward';
 import { PowerIcon } from '@/components/icons/power';
+import { truncateAddress } from '@/utils';
+import { useEffect, useState } from 'react';
+import { HttpClient } from '@/data/utils/client';
+import { API_ENDPOINTS } from '@/data/utils/endpoints';
 
+const signMessage = 'Hello, this is a message to sign.';
 export default function WalletConnect({
   btnClassName,
   anchorClassName,
@@ -19,11 +24,26 @@ export default function WalletConnect({
 }) {
   const { address } = useAccount();
   const { open } = useWeb3Modal();
-  const { data } = useBalance({
-    address,
-  });
+  const list = useWeb3ModalEvents();
+  const { data } = useBalance({ address });
   const { disconnect } = useDisconnect();
+  const { signMessageAsync } = useSignMessage();
+  const [isSigned, setIsSigned] = useState(!address);
   const balance = data?.formatted;
+
+  useEffect(() => {
+    if (list.data.event === 'CONNECT_SUCCESS' && !isSigned) {
+      signMessageAsync({ message: signMessage }).then((signature) => {
+        if (signature) {
+          setIsSigned(true);
+          HttpClient.post<any>(`${API_ENDPOINTS.AUTHENTICATE}`, {
+            address,
+            signature,
+          });
+        }
+      });
+    }
+  }, [list, isSigned]);
 
   return (
     <>
@@ -31,7 +51,10 @@ export default function WalletConnect({
         <div className="flex items-center gap-3 sm:gap-6 lg:gap-8">
           <div className="relative flex-shrink-0">
             <Menu>
-              <Menu.Button className="block h-10 w-10 overflow-hidden rounded-full border-3 border-solid border-white bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 shadow-main transition-all hover:-translate-y-0.5 hover:shadow-large dark:border-gray-700 sm:h-12 sm:w-12"></Menu.Button>
+              <Menu.Button className="flex items-center gap-2">
+                <div className=" h-10 w-10 overflow-hidden rounded-full border-3 border-solid border-white bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 shadow-main transition-all hover:-translate-y-0.5 hover:shadow-large dark:border-gray-700 sm:h-12 sm:w-12" />
+                <p>{truncateAddress(address)}</p>
+              </Menu.Button>
               <Transition
                 enter="ease-out duration-300"
                 enterFrom="opacity-0 translate-y-4"
@@ -90,13 +113,13 @@ export default function WalletConnect({
             </Menu>
           </div>
 
-          <ActiveLink href="/create-listing" className={cn(anchorClassName)}>
+          {/* <ActiveLink href="/create-listing" className={cn(anchorClassName)}>
             <Button
               className={cn('shadow-main hover:shadow-large', btnClassName)}
             >
               CREATE
             </Button>
-          </ActiveLink>
+          </ActiveLink> */}
         </div>
       ) : (
         <Button

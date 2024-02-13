@@ -1,7 +1,7 @@
 import { truncateMiddle } from '@/components/ui/truncate-middle';
 import React from 'react';
 import routes from '@/config/routes';
-
+import { formatDistanceToNow } from 'date-fns';
 // Sample data for "Latest Blocks"
 export const LatestBlocksData = [
   {
@@ -170,9 +170,13 @@ export const BlocksColumns = [
     Cell: ({ row }) => (
       <div className="">
         <a href="#" className="text-blue-600 hover:underline">
-          {row.original.blockId}
+          {row.original.blockNumber}
         </a>
-        <div className="text-xs text-gray-500">{row.original.timestamp}</div>
+        <div className="text-xs text-gray-500">
+          {formatDistanceToNow(new Date(row.original.created), {
+            unit: 'minute',
+          })}
+        </div>
       </div>
     ),
   },
@@ -182,7 +186,7 @@ export const BlocksColumns = [
     Cell: ({ row }) => (
       <div className="">
         <a href="#" className="text-blue-600 hover:underline">
-          {row.original.channel}
+          {row.original.channel.channelName}
         </a>
         <div className="text-xs text-gray-500">
           Transactions: {row.original.txCount}
@@ -217,7 +221,12 @@ export const TransactionsColumns = [
         <a href="#" className="text-blue-600 hover:underline">
           {truncateMiddle(row.original.txId, 6, 4)}
         </a>
-        <div className="text-xs text-gray-500">{row.original.timestamp}</div>
+        <div className="text-xs text-gray-500">
+          {' '}
+          {formatDistanceToNow(new Date(row.original.created), {
+            unit: 'minute',
+          })}
+        </div>
       </div>
     ),
   },
@@ -227,26 +236,35 @@ export const TransactionsColumns = [
     Cell: ({ row }) => (
       <div className="">
         <a href="#" className="text-blue-600 hover:underline">
-          {row.original.channel}
+          {row.original.channel.channelName}
         </a>
-        <div className="text-xs text-gray-500">{row.original.validation}</div>
+        <div className="text-xs text-gray-500">
+          Validation : {row.original.valid}
+        </div>
       </div>
     ),
   },
   {
     Header: 'Sender/Receiver',
-    Cell: ({ row }) => (
-      <div>
+    Cell: ({ row }) => {
+      const args = JSON.parse(row.original.arg);
+      return (
         <div>
-          <span className="text-xs text-gray-500">Sender:</span>{' '}
-          {truncateMiddle(row.original.sender, 6, 4, '...')}
+          <div>
+            <span className="text-xs text-gray-500">Sender:</span>{' '}
+            {args?.from
+              ? truncateMiddle(args.from.replace('client|', ''), 6, 4, '...')
+              : '--'}
+          </div>
+          <div>
+            <span className="text-xs text-gray-500">Receiver:</span>{' '}
+            {args?.to
+              ? truncateMiddle(args.to.replace('client|', ''), 6, 4, '...')
+              : '--'}
+          </div>
         </div>
-        <div>
-          <span className="text-xs text-gray-500">Receiver:</span>{' '}
-          {truncateMiddle(row.original.receiver, 6, 4, '...')}
-        </div>
-      </div>
-    ),
+      );
+    },
   },
   // Add more columns as needed
 ];

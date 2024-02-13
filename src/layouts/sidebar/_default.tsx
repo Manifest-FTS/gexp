@@ -37,6 +37,7 @@ export default function Sidebar({
     ...(item.dropdownItems && {
       dropdownItems: item?.dropdownItems?.map((dropdownItem: any) => ({
         name: dropdownItem.name,
+        disable: dropdownItem?.disable ?? false,
         ...(dropdownItem?.icon && { icon: dropdownItem.icon }),
         href:
           item.name === 'Authentication'
@@ -53,7 +54,7 @@ export default function Sidebar({
         className,
       )}
     >
-      <div className="relative flex h-24 items-center justify-between overflow-hidden px-6 py-4 2xl:px-8">
+      <div className="relative flex items-center justify-between h-24 px-6 py-4 overflow-hidden 2xl:px-8">
         <Logo />
         <div className="md:hidden">
           <Button

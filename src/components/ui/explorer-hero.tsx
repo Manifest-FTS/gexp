@@ -1,40 +1,86 @@
-import React, { useState } from 'react';
-import lightLogo from '@/assets/images/logo.svg';
-import Image from 'next/image';
-import galaChannels from '@/data/galachain-channels';
+import { useChannelList, useGlobalSearch } from '@/hooks/useCoin';
+import { AnimatePresence, motion } from 'framer-motion';
+import { useState } from 'react';
 
 export default function ExplorerHero() {
+  const channels = useChannelList();
+  const [isOpen, setIsOpen] = useState(false);
   const [searchValue, setSearchValue] = useState('');
+  const { searchData, isLoading } = useGlobalSearch(
+    `block:${searchValue} OR TxId:${searchValue}`,
+  );
 
   return (
-    <div className="relative bg-gray-200 dark:bg-light-dark text-gray-800 dark:text-gray-200 p-10 rounded-lg">
-      <div className="max-w-4xl">
-        <h1 className="text-3xl font-bold uppercase mb-4">
-          GalaChain Explorer
-        </h1>
-        <p className="mb-6">
-          Explore blocks, transactions, and addresses on the GalaChain
-        </p>
-        <div className="flex flex-col md:flex-row items-center">
-          <div className="w-full md:w-auto relative mb-4 md:mb-0 md:mr-4">
+    <div className="relative p-6 text-gray-800 bg-gray-200 rounded-lg dark:bg-light-dark dark:text-gray-200">
+      <div className="flex flex-col items-center gap-4 xl:flex-row">
+        <h1 className="text-3xl font-bold uppercase">GalaChain Explorer</h1>
+        <div className="flex gap-2 max-md:flex-col">
+          <div className="relative w-full border rounded-md border-[#6b7280]">
             <input
               type="text"
-              placeholder="Search Token / Block / Tx / Address"
-              className="pl-4 pr-10 py-2 border rounded-md dark:bg-light-dark"
-              value=""
+              placeholder="Search TxId / Block"
+              className="w-full pt-2.5 pl-4 pr-12 border-0 rounded-md shadow-none  dark:bg-light-dark"
+              value={searchValue}
+              onChange={(e) => {
+                setSearchValue(e.target.value);
+                if (!isOpen) {
+                  setIsOpen(true);
+                } else if (!e.target.value) {
+                  setIsOpen(false);
+                }
+              }}
             />
-            <button className="absolute right-2 top-1/2 transform -translate-y-1/2 text-lg">
-              🔍
+            <button
+              className="absolute text-md transform -translate-y-1/2 right-3 top-1/2"
+              onClick={() => {
+                setIsOpen((e) => {
+                  if (e) {
+                    setSearchValue('');
+                  }
+                  return !e;
+                });
+              }}
+            >
+              {isOpen ? '❌' : '🔍'}
             </button>
+            <AnimatePresence>
+              {isOpen && (
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.2 }}
+                  className="absolute z-10 mt-1 w-full bg-white dark:bg-light-dark  border dark:border-dark dark:divide-[#6b7280] divide-y rounded-md shadow-lg"
+                >
+                  {isLoading ? (
+                    <div className="p-2">Loading...</div>
+                  ) : searchData ? (
+                    searchData.map((option: any, index: number) => (
+                      <a href={`/explorer/block/${option.number}`}>
+                        <div
+                          key={index}
+                          className="p-2 hover:bg-gray-200 dark:hover:bg-gray-200/10  cursor-pointer"
+                          onClick={() => console.log(option)}
+                        >
+                          Channel: {option.channel} Block: {option.number}
+                        </div>
+                      </a>
+                    ))
+                  ) : (
+                    <div className="p-2">No data found!!</div>
+                  )}
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
-          <select className="w-full md:w-auto border rounded-md py-2 px-4 dark:bg-light-dark dark:text-gray-100">
-            <option value="0">All</option>
-            <option value="1">Asset Channel</option>
-            <option value="2">Battlestar Galactica Eternity</option>
-            <option value="3">Champions Arena</option>
-            <option value="4">Echoes of Empire</option>
-            <option value="5">Spider Tanks</option>
-          </select>
+          {channels && (
+            <select className="w-full border rounded-md h-11 dark:bg-light-dark dark:text-gray-100">
+              <option value="">All Channel</option>
+              {channels.map((item) => (
+                <option value={item.channelId}>{item.channelName}</option>
+              ))}
+            </select>
+          )}
         </div>
       </div>
     </div>

@@ -1,7 +1,6 @@
 'use client';
 
-/* eslint-disable react-hooks/exhaustive-deps */
-import { useWeb3Modal } from '@web3modal/react';
+import { useWeb3Modal } from '@web3modal/wagmi/react';
 import Image from '@/components/ui/image';
 import metamaskLogo from '@/assets/images/metamask.svg';
 
