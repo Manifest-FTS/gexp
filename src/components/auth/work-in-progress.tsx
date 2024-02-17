@@ -10,7 +10,7 @@ import { useIsDarkMode } from '@/lib/hooks/use-is-dark-mode';
 import ErrorLightImage from '@/assets/images/404-light.svg';
 import ErrorDarkImage from '@/assets/images/404-dark.svg';
 
-export default function NotFoundPage() {
+export default function WorkInProgressPage() {
   const isMounted = useIsMounted();
   const { isDarkMode } = useIsDarkMode();
   return (
@@ -26,10 +26,11 @@ export default function NotFoundPage() {
         </div>
 
         <h2 className="mb-2 mt-5 text-base font-medium uppercase tracking-wide text-gray-900 dark:text-white sm:mb-4 sm:mt-10 sm:text-xl 3xl:mt-12 3xl:text-2xl">
-          Opps!!! Looks like you are lost
+          Sorry, It's a work in progress
         </h2>
         <p className="mb-4 max-w-full text-xs leading-loose tracking-tight text-gray-600 dark:text-gray-400 sm:mb-6 sm:w-[430px] sm:text-sm sm:leading-loose">
-          The page that you are looking for is not available.
+          This page is under construction, we are working to deliver this to
+          you.
         </p>
         <AnchorLink href={{ pathname: routes.home }}>
           <Button shape="rounded">Back to Home</Button>

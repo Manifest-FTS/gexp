@@ -5,6 +5,7 @@ import {
   BlockHourListResponse,
   BlockListResponse,
   ChannelBlockListResponse,
+  ChannelData,
   ChannelListResponse,
   CoinPaginator,
   CoinPrice,
@@ -112,10 +113,10 @@ export function useTokenList() {
   };
 }
 
-export function useBlockHourList() {
+export function useBlockHourList(interval: string) {
   const { data, isLoading, error } = useQuery<BlockHourListResponse, Error>(
-    [API_ENDPOINTS.BLOCK_HOUR_LIST],
-    () => client.charts.getBlockHourList(),
+    [API_ENDPOINTS.BLOCK_HOUR_LIST, { interval }],
+    () => client.charts.getBlockHourList(interval),
     { refetchInterval: 60000 },
   );
 
@@ -123,7 +124,7 @@ export function useBlockHourList() {
     name: format(
       addMinutes(new Date(hour), new Date(hour).getTimezoneOffset()),
       'dd/MM/yy, HH:mm',
-    ), //dd/MM/yy,
+    ),
     blockCount: +count,
   }));
 
@@ -134,10 +135,10 @@ export function useBlockHourList() {
   };
 }
 
-export function useChannelBlockList() {
+export function useChannelBlockList(interval: string) {
   const { data, isLoading, error } = useQuery<ChannelBlockListResponse, Error>(
-    [API_ENDPOINTS.CHANNEL_BLOCK_LIST],
-    () => client.charts.getChannelBlockList(),
+    [API_ENDPOINTS.CHANNEL_BLOCK_LIST, { interval }],
+    () => client.charts.getChannelBlockList(interval),
     { refetchInterval: 60000 },
   );
 
@@ -152,7 +153,7 @@ export function useChannelBlockList() {
     return rgbaColor;
   }
 
-  const parsedResponse = data?.data.map(
+  const parsedResponse = data?.data?.map(
     ({ channelName, blockCount }, index) => ({
       name: channelName,
       value: +blockCount,
@@ -167,28 +168,32 @@ export function useChannelBlockList() {
   };
 }
 
-export function useBlockList(limit: number, page: number) {
+export function useBlockList(limit: number, page: number, channelId: number) {
   const { data, isLoading, error } = useQuery<BlockListResponse, Error>(
-    [API_ENDPOINTS.BLOCK_LIST, { limit, page }],
-    () => client.latest.getBlockList({ limit, page }),
+    [API_ENDPOINTS.BLOCK_LIST, { limit, page, channelId }],
+    () => client.latest.getBlockList({ limit, page, channelId }),
   );
 
   return {
-    latestBlocks: data?.data.data || [],
-    loadingBlocks: isLoading,
+    data: data?.data.data || [],
+    isLoading,
     error,
   };
 }
 
-export function useTransactionList(limit: number, page: number) {
+export function useTransactionList(
+  limit: number,
+  page: number,
+  channelId: number,
+) {
   const { data, isLoading, error } = useQuery<TransactionListResponse, Error>(
-    [API_ENDPOINTS.TRANSACTION_LIST, { limit, page }],
-    () => client.latest.getTransactionList({ limit, page }),
+    [API_ENDPOINTS.TRANSACTION_LIST, { limit, page, channelId }],
+    () => client.latest.getTransactionList({ limit, page, channelId }),
   );
 
   return {
-    latestTransaction: data?.data.data || [],
-    loadingTransactions: isLoading,
+    data: data?.data.data || [],
+    isLoading,
     error,
   };
 }
@@ -199,7 +204,7 @@ export function useChannelList() {
     () => client.channel.get(),
   );
 
-  return data?.data;
+  return data?.data || ([] as ChannelData[]);
 }
 
 export function useGlobalSearch(query: string) {
@@ -221,7 +226,10 @@ export function useGlobalSearch(query: string) {
   const { error, isLoading, data } = useQuery<any, Error>(
     [API_ENDPOINTS.GLOBAL_SEARCH, payload],
     () => client.global.search(payload),
-    { enabled: !payload.search.includes('`block: OR'), retry: 0 },
+    {
+      enabled: !!payload.search && !payload.search.includes('block: OR'),
+      retry: 0,
+    },
   );
 
   return { searchData: data?.data, isLoading };
