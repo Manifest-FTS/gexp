@@ -44,22 +44,24 @@ class client {
   };
 
   latest = {
-    getBlockList: ({ limit, page }: GetLatestParams) =>
+    getBlockList: ({ limit, page, channelId }: GetLatestParams) =>
       HttpClient.get<BlockListResponse>(
-        `${API_ENDPOINTS.BLOCK_LIST}?limit=${limit}&page=${page}`,
+        `${API_ENDPOINTS.BLOCK_LIST}?limit=${limit}&page=${page}&channelId=${channelId}`,
       ),
-    getTransactionList: ({ limit, page }: GetLatestParams) =>
+    getTransactionList: ({ limit, page, channelId }: GetLatestParams) =>
       HttpClient.get<TransactionListResponse>(
-        `${API_ENDPOINTS.TRANSACTION_LIST}?limit=${limit}&page=${page}`,
+        `${API_ENDPOINTS.TRANSACTION_LIST}?limit=${limit}&page=${page}&channelId=${channelId}`,
       ),
   };
 
   charts = {
-    getBlockHourList: () =>
-      HttpClient.get<BlockHourListResponse>(`${API_ENDPOINTS.BLOCK_HOUR_LIST}`),
-    getChannelBlockList: () =>
+    getBlockHourList: (interval: string) =>
+      HttpClient.get<BlockHourListResponse>(
+        `${API_ENDPOINTS.BLOCK_HOUR_LIST}?interval=${interval}`,
+      ),
+    getChannelBlockList: (interval: string) =>
       HttpClient.get<ChannelBlockListResponse>(
-        `${API_ENDPOINTS.CHANNEL_BLOCK_LIST}`,
+        `${API_ENDPOINTS.CHANNEL_BLOCK_LIST}?interval=${interval}`,
       ),
   };
 

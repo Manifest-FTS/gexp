@@ -20,7 +20,7 @@ export default function Home() {
             <CoinSlider />
           </div>
         </div>
-        <div className="flex max-md:flex-col gap-4 mb-4">
+        <div className="flex max-lg:flex-col gap-4 mb-4">
           <div className="flex-1 sm:mb-0 dark:[&_.swiper-scrollbar>_.swiper-scrollbar-drag]:bg-body/50">
             <NewBlockBarChart />
           </div>

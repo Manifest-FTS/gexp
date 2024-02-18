@@ -169,7 +169,10 @@ export const BlocksColumns = [
     accessor: 'blockId',
     Cell: ({ row }) => (
       <div className="">
-        <a href="#" className="text-blue-600 hover:underline">
+        <a
+          href={`/explorer/blocks/${row.original.blockNumber}`}
+          className="text-blue-600 hover:underline"
+        >
           {row.original.blockNumber}
         </a>
         <div className="text-xs text-gray-500">
@@ -199,6 +202,7 @@ export const BlocksColumns = [
     accessor: 'executes',
     Cell: ({ value }) => (
       <div className="">
+        {!value.length && '--'}
         {value.map((execute, index) => (
           <a key={index} href="#" className="text-blue-600 hover:underline">
             {execute}
@@ -218,7 +222,10 @@ export const TransactionsColumns = [
     accessor: 'txId',
     Cell: ({ row }) => (
       <div>
-        <a href="#" className="text-blue-600 hover:underline">
+        <a
+          href={`/explorer/tx/${row.original.txId}`}
+          className="text-blue-600 hover:underline"
+        >
           {truncateMiddle(row.original.txId, 6, 4)}
         </a>
         <div className="text-xs text-gray-500">
@@ -247,7 +254,7 @@ export const TransactionsColumns = [
   {
     Header: 'Sender/Receiver',
     Cell: ({ row }) => {
-      const args = JSON.parse(row.original.arg);
+      const args = JSON.parse(row.original.rawData?.actions?.[0]?.args?.[1]);
       return (
         <div>
           <div>

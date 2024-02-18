@@ -73,14 +73,6 @@ export default function ExplorerHero() {
               )}
             </AnimatePresence>
           </div>
-          {channels && (
-            <select className="w-full border rounded-md h-11 dark:bg-light-dark dark:text-gray-100">
-              <option value="">All Channel</option>
-              {channels.map((item) => (
-                <option value={item.channelId}>{item.channelName}</option>
-              ))}
-            </select>
-          )}
         </div>
       </div>
     </div>
