@@ -243,7 +243,7 @@ export const TransactionsColumns = [
     Cell: ({ row }) => (
       <div className="">
         <a href="#" className="text-blue-600 hover:underline">
-          {row.original.channel.channelName}
+          {row.original.channelName}
         </a>
         <div className="text-xs text-gray-500">
           Validation : {row.original.valid}
