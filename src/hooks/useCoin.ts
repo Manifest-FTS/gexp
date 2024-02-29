@@ -1,7 +1,7 @@
+import { formatTokenData } from '@/data/static/coin-slide-data';
 import client from '@/data/utils';
 import { API_ENDPOINTS } from '@/data/utils/endpoints';
 import {
-  APIResponse,
   BlockHourListResponse,
   BlockListResponse,
   ChannelBlockListResponse,
@@ -13,12 +13,11 @@ import {
   TokenPriceListResponse,
   TransactionListResponse,
 } from '@/types';
-import type { UseInfiniteQueryOptions } from 'react-query';
-import { useRouter } from 'next/router';
-import { useQuery, useInfiniteQuery } from 'react-query';
-import { formatTokenData } from '@/data/static/coin-slide-data';
 import { addMinutes, format } from 'date-fns';
+import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import type { UseInfiniteQueryOptions } from 'react-query';
+import { useInfiniteQuery, useQuery } from 'react-query';
 
 export function useCoins(
   options?: Partial<CryptoQueryOptions>,

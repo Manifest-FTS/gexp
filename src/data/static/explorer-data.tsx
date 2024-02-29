@@ -171,7 +171,7 @@ export const BlocksColumns = [
       <div className="">
         <a
           href={`/explorer/blocks/${row.original.blockNumber}`}
-          className="text-blue-600 hover:underline"
+          className="hover:text-blue-600 hover:underline"
         >
           {row.original.blockNumber}
         </a>
@@ -188,7 +188,7 @@ export const BlocksColumns = [
     accessor: 'channel',
     Cell: ({ row }) => (
       <div className="">
-        <a href="#" className="text-blue-600 hover:underline">
+        <a href="#" className="hover:text-blue-600 hover:underline">
           {row.original.channel.channelName}
         </a>
         <div className="text-xs text-gray-500">
@@ -201,13 +201,13 @@ export const BlocksColumns = [
     Header: 'Executes',
     accessor: 'executes',
     Cell: ({ value }) => (
-      <div className="">
+      <div className="flex">
         {!value.length && '--'}
         {value.map((execute, index) => (
-          <a key={index} href="#" className="text-blue-600 hover:underline">
+          <div>
             {execute}
             {index < value.length - 1 ? ', ' : ''}
-          </a>
+          </div>
         ))}
       </div>
     ),
@@ -224,7 +224,7 @@ export const TransactionsColumns = [
       <div>
         <a
           href={`/explorer/tx/${row.original.txId}`}
-          className="text-blue-600 hover:underline"
+          className="hover:text-blue-600 hover:underline"
         >
           {truncateMiddle(row.original.txId, 6, 4)}
         </a>
@@ -242,7 +242,7 @@ export const TransactionsColumns = [
     accessor: 'channel',
     Cell: ({ row }) => (
       <div className="">
-        <a href="#" className="text-blue-600 hover:underline">
+        <a href="#" className="hover:text-blue-600 hover:underline">
           {row.original.channelName}
         </a>
         <div className="text-xs text-gray-500">
@@ -254,7 +254,9 @@ export const TransactionsColumns = [
   {
     Header: 'Sender/Receiver',
     Cell: ({ row }) => {
-      const args = JSON.parse(row.original.rawData?.actions?.[0]?.args?.[1]);
+      const args = JSON.parse(
+        row.original.rawData?.actions?.[0]?.args?.[1] || '{}',
+      );
       return (
         <div>
           <div>
