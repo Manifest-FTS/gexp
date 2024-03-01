@@ -102,7 +102,7 @@ const Table = ({
           <div className="flex justify-center gap-3 py-4  border-t border-gray-200 border-dashed dark:border-gray-700 items-center">
             <button
               disabled={pageIndex === 1}
-              className="text-2xl py-2 px-4 bg-brand rounded-lg disabled:cursor-not-allowed"
+              className="text-2xl py-2 px-4 bg-brand rounded-lg disabled:cursor-not-allowed text-white"
               onClick={() => previousPage()}
             >
               {'<'}
@@ -112,7 +112,7 @@ const Table = ({
               <strong> {pageIndex}</strong>
             </span>
             <button
-              className="text-2xl py-2 px-4 bg-brand rounded-lg "
+              className="text-2xl py-2 px-4 bg-brand rounded-lg text-white"
               onClick={() => nextPage()}
             >
               {'>'}

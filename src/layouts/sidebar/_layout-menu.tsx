@@ -30,7 +30,7 @@ export default function DrawerMenu({
         name: dropdownItem.name,
         disable: dropdownItem?.disable ?? false,
         ...(dropdownItem?.icon && { icon: dropdownItem.icon }),
-        href: routes[dropdownItem.href] || '',
+        href: dropdownItem.href || '',
       })),
     }),
   }));

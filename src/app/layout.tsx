@@ -56,7 +56,7 @@ export default async function RootLayout({
               <div className="ltr:xl:pl-24 rtl:xl:pr-24 ltr:2xl:pl-28 rtl:2xl:pr-28 ">
                 <ClassicHeader />
                 <Sidebar className="hidden xl:block" />
-                <main className="min-h-screen px-4 pb-16 pt-4 sm:px-6 sm:pb-20 lg:px-8 xl:pb-24 xl:pt-5 3xl:px-10">
+                <main className="min-h-screen px-4 pb-4 pt-4 sm:px-6 sm:pb-4 lg:px-8 xl:pb-8 xl:pt-5 3xl:px-10">
                   {children}
                 </main>
               </div>
