@@ -32,99 +32,97 @@ const Table = ({ title, url, fetchHook, columns }: TableProps) => {
   const tableInstance = useTable({ columns, data });
 
   return (
-    <div className="min-w-0 overflow-x-auto lg:w-1/2">
-      <Scrollbar>
-        <div className="bg-white rounded-lg dark:bg-light-dark">
-          <div className="px-4 pt-6 md:px-8 md:pt-8">
-            <div className="flex flex-col items-center justify-between pb-5 border-b border-gray-200 border-dashed dark:border-gray-700 md:flex-row">
-              <h2 className="text-lg font-medium text-black uppercase dark:text-white md:text-2xl">
-                {title}
-              </h2>
-              <Select
-                value={channel}
-                setValue={(e) => setChannel(e as number)}
-                defaultLabel="All Channel"
-                defaultValue={0}
-                options={channels.map((item) => ({
-                  label: item.channelName,
-                  value: item.channelId,
-                }))}
-              />
-            </div>
-          </div>
-          <div className="px-0.5">
-            <Scrollbar
-              style={{ width: '100%', minHeight: '35vh', position: 'relative' }}
-              autoHide="never"
-            >
-              {isLoading && (
-                <div className="absolute top-[50%] left-[45%]">
-                  <Loader />
-                </div>
-              )}
-              <table
-                {...tableInstance.getTableProps()}
-                className="w-full border-0 border-separate"
-              >
-                <thead className="text-sm text-gray-500 dark:text-gray-300">
-                  {tableInstance.headerGroups.map((headerGroup, idx) => (
-                    <tr {...headerGroup.getHeaderGroupProps()} key={idx}>
-                      {headerGroup.headers.map((column, idx) => (
-                        <th
-                          {...column.getHeaderProps()}
-                          key={idx}
-                          className="px-4 py-2 text-xs font-medium tracking-wider text-left text-gray-500 uppercase"
-                        >
-                          {column.render('Header')}
-                        </th>
-                      ))}
-                    </tr>
-                  ))}
-                </thead>
-                <tbody
-                  {...tableInstance.getTableBodyProps()}
-                  className="bg-white divide-y divide-gray-200 dark:bg-light-dark"
-                >
-                  {tableInstance.rows.map((row, idx) => {
-                    tableInstance.prepareRow(row);
-                    return (
-                      <tr
-                        {...row.getRowProps()}
-                        key={idx}
-                        className="align-middle"
-                      >
-                        {row.cells.map((cell, idx) => (
-                          <td
-                            {...cell.getCellProps()}
-                            key={idx}
-                            className="px-4 py-2 text-left whitespace-nowrap"
-                          >
-                            {cell.render('Cell')}
-                          </td>
-                        ))}
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
-            </Scrollbar>
-            <div className="py-4 text-center">
-              <a href={url}>
-                <Button size="large" shape="rounded" className="uppercase">
-                  View All {title}
-                </Button>
-              </a>
-            </div>
+    <div className="lg:w-1/2">
+      <div className="bg-white rounded-lg shadow-card dark:bg-light-dark">
+        <div className="px-4 pt-6 md:px-8">
+          <div className="flex flex-col items-center justify-between pb-5 border-b border-gray-200 border-dashed dark:border-gray-700 md:flex-row">
+            <h2 className="text-lg font-medium text-black uppercase dark:text-white md:text-2xl">
+              {title}
+            </h2>
+            <Select
+              value={channel}
+              setValue={(e) => setChannel(e as number)}
+              defaultLabel="All Channel"
+              defaultValue={0}
+              options={channels.map((item) => ({
+                label: item.channelName,
+                value: item.channelId,
+              }))}
+            />
           </div>
         </div>
-      </Scrollbar>
+        <div className="px-0.5">
+          <Scrollbar
+            style={{ width: '100%', height: '50vh', position: 'relative' }}
+            autoHide="never"
+          >
+            {isLoading && (
+              <div className="absolute top-[50%] left-[45%]">
+                <Loader />
+              </div>
+            )}
+            <table
+              {...tableInstance.getTableProps()}
+              className="w-full border-0 border-separate"
+            >
+              <thead className="text-sm text-gray-500 dark:text-gray-300">
+                {tableInstance.headerGroups.map((headerGroup, idx) => (
+                  <tr {...headerGroup.getHeaderGroupProps()} key={idx}>
+                    {headerGroup.headers.map((column, idx) => (
+                      <th
+                        {...column.getHeaderProps()}
+                        key={idx}
+                        className="px-4 py-2 text-xs font-medium tracking-wider text-left text-gray-500 uppercase"
+                      >
+                        {column.render('Header')}
+                      </th>
+                    ))}
+                  </tr>
+                ))}
+              </thead>
+              <tbody
+                {...tableInstance.getTableBodyProps()}
+                className="bg-white divide-y divide-gray-200 dark:bg-light-dark"
+              >
+                {tableInstance.rows.map((row, idx) => {
+                  tableInstance.prepareRow(row);
+                  return (
+                    <tr
+                      {...row.getRowProps()}
+                      key={idx}
+                      className="align-middle"
+                    >
+                      {row.cells.map((cell, idx) => (
+                        <td
+                          {...cell.getCellProps()}
+                          key={idx}
+                          className="px-4 py-2 text-left whitespace-nowrap"
+                        >
+                          {cell.render('Cell')}
+                        </td>
+                      ))}
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </Scrollbar>
+          <div className="pt-4 pb-6 text-center">
+            <a href={url}>
+              <Button size="large" shape="rounded" className="uppercase">
+                View All {title}
+              </Button>
+            </a>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
 
 export default function ExplorerTable() {
   return (
-    <div className="flex flex-col w-full divide-y divide-gray-200 lg:flex-row lg:divide-y-0 lg:divide-x">
+    <div className="flex flex-col w-full gap-4 lg:flex-row ">
       <Table
         title="Latest Blocks"
         url="/explorer/blocks"

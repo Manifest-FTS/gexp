@@ -13,6 +13,7 @@ export const truncateMiddle = (
   backLen: number = 4,
   truncateStr: string = '...',
 ): string => {
+  if (!str) return '--';
   if (str.length <= frontLen + backLen) {
     return str;
   }

@@ -170,7 +170,7 @@ export const BlocksColumns = [
     Cell: ({ row }) => (
       <div className="">
         <a
-          href={`/explorer/blocks/${row.original.blockNumber}`}
+          href={`/explorer/blocks/${row.original.blockNumber}?channel=${row.original.channelId}`}
           className="hover:text-blue-600 hover:underline"
         >
           {row.original.blockNumber}
@@ -188,9 +188,7 @@ export const BlocksColumns = [
     accessor: 'channel',
     Cell: ({ row }) => (
       <div className="">
-        <a href="#" className="hover:text-blue-600 hover:underline">
-          {row.original.channel.channelName}
-        </a>
+        <div>{row.original.channel.channelName}</div>
         <div className="text-xs text-gray-500">
           Transactions: {row.original.txCount}
         </div>
@@ -242,9 +240,7 @@ export const TransactionsColumns = [
     accessor: 'channel',
     Cell: ({ row }) => (
       <div className="">
-        <a href="#" className="hover:text-blue-600 hover:underline">
-          {row.original.channelName}
-        </a>
+        <div>{row.original.channelName}</div>
         <div className="text-xs text-gray-500">
           Validation : {row.original.valid}
         </div>

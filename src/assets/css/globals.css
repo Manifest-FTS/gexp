@@ -312,3 +312,13 @@ input.reset-password-pin-code[type='number'] {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
 }
+
+.json-viewer-div > div {
+  overflow: auto;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.json-viewer-div > div::-webkit-scrollbar {
+  display: none;
+}
