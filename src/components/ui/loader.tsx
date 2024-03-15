@@ -27,7 +27,7 @@ function handleLoaderPosition(size: LoaderSizeTypes) {
 
 function handleVariantClasses(
   variant: LoaderVariantTypes,
-  size: LoaderSizeTypes
+  size: LoaderSizeTypes,
 ) {
   return variant === 'moveUp' && size === 'small'
     ? 'animate-move-up-small'
@@ -47,36 +47,36 @@ export default function Loader({
       className={cn(
         'flex items-center gap-2',
         variant === 'moveUp' && handleLoaderPosition(size),
-        className
+        className,
       )}
     >
       <span
         className={cn(
-          'bg-current rounded-full',
+          'bg-brand rounded-full',
           handleVariantClasses(variant, size),
-          sizes[size]
+          sizes[size],
         )}
       />
       <span
         className={cn(
-          'animation-delay-200 bg-current rounded-full',
+          'animation-delay-200 bg-brand rounded-full',
           handleVariantClasses(variant, size),
-          sizes[size]
+          sizes[size],
         )}
       />
       <span
         className={cn(
-          'animation-delay-500 bg-current rounded-full',
+          'animation-delay-500 bg-brand rounded-full',
           handleVariantClasses(variant, size),
-          sizes[size]
+          sizes[size],
         )}
       />
       {variant === 'moveUp' && !showOnlyThreeDots ? (
         <span
           className={cn(
-            'animation-delay-700 bg-current rounded-full',
+            'animation-delay-700 bg-brand rounded-full',
             handleVariantClasses(variant, size),
-            sizes[size]
+            sizes[size],
           )}
         />
       ) : null}

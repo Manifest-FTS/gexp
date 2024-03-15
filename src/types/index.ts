@@ -35,6 +35,12 @@ export interface GetLatestParams {
   blockNumber?: string;
   channelId?: number;
 }
+
+export interface GetBlockDetailParams {
+  blockNumber: string;
+  channelId: string;
+}
+
 export interface GlobalSearchParams {
   limit: number;
   offset: number;
@@ -150,6 +156,11 @@ export interface ListResponse<T> {
 export interface BlockListResponse
   extends APIResponse<ListResponse<BlockData>> {}
 
+export interface BlockDetailResponse extends APIResponse<BlockDetailData> {}
+
+export interface TransactionDetailResponse
+  extends APIResponse<TransactionDetailData> {}
+
 export interface TransactionListResponse
   extends APIResponse<ListResponse<TransactionData>> {}
 
@@ -167,6 +178,17 @@ export interface ChannelBlockData {
   channelId: number;
   channelName: string;
   blockCount: string;
+}
+export interface BlockDetailData {
+  data: { rawData: string };
+}
+export interface TransactionDetailData {
+  data: {
+    rawData: RawData;
+    blockNumber: number;
+    channelId: number;
+    createdAt: string;
+  };
 }
 export interface BlockHourData {
   hour: string;
@@ -205,4 +227,53 @@ export interface TransactionData {
 
 export interface Channel {
   channelName: string;
+}
+
+export interface RawData {
+  actions: Action[];
+  creator: Creator;
+  id: string;
+  type: string;
+  validationCode: ValidationCode;
+}
+
+export interface Action {
+  args: string[];
+  chaincode: Chaincode;
+  chaincodeResponse: ChaincodeResponse;
+  endorserMsps: string[];
+  reads: Read[];
+  writes: Write[];
+}
+
+export interface Chaincode {
+  name: string;
+  version: string;
+}
+
+export interface ChaincodeResponse {
+  status: number;
+  message: string;
+  payload: string;
+}
+
+export interface Read {
+  key: string;
+}
+
+export interface Write {
+  isDelete: boolean;
+  key: string;
+  value: string;
+}
+
+export interface Creator {
+  mspId: string;
+  name: string;
+}
+
+export interface ValidationCode {
+  transactionId: string;
+  validationCode: number;
+  validationEnum: string;
 }

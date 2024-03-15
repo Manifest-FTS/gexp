@@ -1,5 +1,5 @@
 'use client';
-import Table from '@/components/common/Table';
+import Table from '@/components/common/PaginationTable';
 import Select from '@/components/search/select';
 import { truncateMiddle } from '@/components/ui/truncate-middle';
 import { useTransactionList } from '@/hooks/useCoin';
@@ -23,11 +23,7 @@ const columns = [
   {
     Header: 'Channel',
     accessor: 'channel',
-    Cell: ({ row }) => (
-      <a href="#" className="hover:text-blue-600 hover:underline">
-        {row.original.channelName}
-      </a>
-    ),
+    Cell: ({ row }) => <div>{row.original.channelName}</div>,
   },
 
   {

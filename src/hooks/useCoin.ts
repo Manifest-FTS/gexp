@@ -2,6 +2,7 @@ import { formatTokenData } from '@/data/static/coin-slide-data';
 import client from '@/data/utils';
 import { API_ENDPOINTS } from '@/data/utils/endpoints';
 import {
+  BlockDetailResponse,
   BlockHourListResponse,
   BlockListResponse,
   ChannelBlockListResponse,
@@ -11,6 +12,7 @@ import {
   CoinPrice,
   CryptoQueryOptions,
   TokenPriceListResponse,
+  TransactionDetailResponse,
   TransactionListResponse,
 } from '@/types';
 import { addMinutes, format } from 'date-fns';
@@ -175,6 +177,58 @@ export function useBlockList(limit: number, page: number, channelId: number) {
 
   return {
     data: data?.data.data || [],
+    isLoading,
+    error,
+  };
+}
+
+export function useBlockDetails(blockNumber: string, channelId: string) {
+  const { data, isLoading, error } = useQuery<BlockDetailResponse, Error>(
+    [API_ENDPOINTS.BLOCK_LIST, { blockNumber, channelId }],
+    () => client.latest.getBlockDetail({ blockNumber, channelId }),
+  );
+
+  if (!data?.data?.data?.rawData)
+    return {
+      data: {},
+      isLoading,
+      error,
+    };
+
+  const response = JSON.parse(data.data.data.rawData);
+
+  return {
+    data: {
+      blockNumber: response.blockNumber,
+      createdAt: response.createdAt,
+      channelName: response.channelName,
+      transactions: response.transactions.map(({ id, actions }: any) => {
+        const [method, params] = actions?.[0]?.args;
+        const paramsObj = JSON.parse(params);
+        return {
+          id,
+          method,
+          blockNumber,
+          createdAt: response.createdAt,
+          owner: paramsObj?.owner?.replace('client|', ''),
+          to: paramsObj?.to?.replace('client|', ''),
+          from: paramsObj?.from?.replace('client|', ''),
+        };
+      }),
+    },
+    isLoading,
+    error,
+  };
+}
+
+export function useTransactionDetails(txId: string) {
+  const { data, isLoading, error } = useQuery<TransactionDetailResponse, Error>(
+    [API_ENDPOINTS.BLOCK_LIST, { txId }],
+    () => client.latest.getTransactionDetail({ txId }),
+  );
+
+  return {
+    data: data?.data?.data,
     isLoading,
     error,
   };

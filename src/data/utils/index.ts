@@ -1,7 +1,8 @@
 /* eslint-disable import/no-anonymous-default-export */
+import { HttpClient } from '@/data/utils/client';
 import { API_ENDPOINTS } from '@/data/utils/endpoints';
 import type {
-  APIResponse,
+  BlockDetailResponse,
   BlockHourListResponse,
   BlockListResponse,
   ChannelBlockListResponse,
@@ -9,16 +10,16 @@ import type {
   CoinPaginator,
   CoinPrice,
   CryptoQueryOptions,
+  GetBlockDetailParams,
   GetLatestParams,
   GetParams,
   GlobalSearchParams,
   Settings,
   SettingsQueryOptions,
   TokenPriceListResponse,
+  TransactionDetailResponse,
   TransactionListResponse,
 } from '@/types';
-import { HttpClient } from '@/data/utils/client';
-import axios from 'axios';
 
 class client {
   coins = {
@@ -48,9 +49,17 @@ class client {
       HttpClient.get<BlockListResponse>(
         `${API_ENDPOINTS.BLOCK_LIST}?limit=${limit}&page=${page}&channelId=${channelId}`,
       ),
+    getBlockDetail: ({ blockNumber, channelId }: GetBlockDetailParams) =>
+      HttpClient.get<BlockDetailResponse>(
+        `${API_ENDPOINTS.BLOCK_DETAIL}?blockNumber=${blockNumber}&channelId=${channelId}`,
+      ),
     getTransactionList: ({ limit, page, channelId }: GetLatestParams) =>
       HttpClient.get<TransactionListResponse>(
         `${API_ENDPOINTS.TRANSACTION_LIST}?limit=${limit}&page=${page}&channelId=${channelId}`,
+      ),
+    getTransactionDetail: ({ txId }: { txId: string }) =>
+      HttpClient.get<TransactionDetailResponse>(
+        `${API_ENDPOINTS.TRANSACTION_DETAIL}?txId=${txId}`,
       ),
   };
 

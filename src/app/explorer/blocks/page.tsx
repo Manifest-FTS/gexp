@@ -1,5 +1,5 @@
 'use client';
-import Table from '@/components/common/Table';
+import Table from '@/components/common/PaginationTable';
 import Select from '@/components/search/select';
 import { useBlockList } from '@/hooks/useCoin';
 import { createOptionArray } from '@/utils';
@@ -13,7 +13,7 @@ const columns = [
     Cell: ({ row }) => (
       <div className="">
         <a
-          href={`/explorer/blocks/${row.original.blockNumber}`}
+          href={`/explorer/blocks/${row.original.blockNumber}?channel=${row.original.channelId}`}
           className="hover:text-blue-600 hover:underline"
         >
           {row.original.blockNumber}
@@ -24,11 +24,7 @@ const columns = [
   {
     Header: 'Channel',
     accessor: 'channel',
-    Cell: ({ row }) => (
-      <a href="#" className="hover:text-blue-600 hover:underline">
-        {row.original.channel.channelName}
-      </a>
-    ),
+    Cell: ({ row }) => <div> {row.original.channel.channelName}</div>,
   },
   {
     Header: 'Transactions',
