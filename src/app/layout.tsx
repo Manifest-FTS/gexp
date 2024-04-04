@@ -42,8 +42,17 @@ export default async function RootLayout({
           name="viewport"
           content="width=device-width, initial-scale=1 maximum-scale=1"
         />
+        <script type="module" src="./script.js"></script>
       </head>
       <body>
+        <noscript>
+          <iframe
+            src="https://www.googletagmanager.com/ns.html?id=GTM-T5S4FJHN"
+            height="0"
+            width="0"
+            style={{ display: 'none', visibility: 'hidden' }}
+          ></iframe>
+        </noscript>
         <QueryClientProvider>
           <ThemeProvider>
             <WagmiConfig>

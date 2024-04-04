@@ -31,7 +31,8 @@
     "./src/**/*.ts",
     "./src/**/*.tsx",
     ".next/types/**/*.ts",
-    "src/app/trading-bot"
+    "src/app/trading-bot",
+    "src/app/script.js"
   ],
   "exclude": ["node_modules"]
 }
