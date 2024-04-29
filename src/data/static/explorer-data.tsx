@@ -2,6 +2,7 @@ import { truncateMiddle } from '@/components/ui/truncate-middle';
 import React from 'react';
 import routes from '@/config/routes';
 import { formatDistanceToNow } from 'date-fns';
+import SearchCell from '@/components/common/SearchCell';
 // Sample data for "Latest Blocks"
 export const LatestBlocksData = [
   {
@@ -188,7 +189,12 @@ export const BlocksColumns = [
     accessor: 'channel',
     Cell: ({ row }) => (
       <div className="">
-        <div>{row.original.channel.channelName}</div>
+        <SearchCell
+          query="channelName"
+          value={row.original.channel.channelName}
+        >
+          {row.original.channel.channelName}
+        </SearchCell>
         <div className="text-xs text-gray-500">
           Transactions: {row.original.txCount}
         </div>
@@ -202,10 +208,9 @@ export const BlocksColumns = [
       <div className="flex">
         {!value.length && '--'}
         {value.map((execute, index) => (
-          <div>
+          <SearchCell query="executes" value={execute}>
             {execute}
-            {index < value.length - 1 ? ', ' : ''}
-          </div>
+          </SearchCell>
         ))}
       </div>
     ),
@@ -240,10 +245,14 @@ export const TransactionsColumns = [
     accessor: 'channel',
     Cell: ({ row }) => (
       <div className="">
-        <div>{row.original.channelName}</div>
-        <div className="text-xs text-gray-500">
-          Validation : {row.original.valid}
-        </div>
+        <SearchCell query="channelName" value={row.original.channelName}>
+          {row.original.channelName}
+        </SearchCell>
+        <SearchCell query="valid" value={row.original.valid}>
+          <div className="text-xs text-gray-500 flex gap-1">
+            Validation : {row.original.valid}
+          </div>
+        </SearchCell>
       </div>
     ),
   },
@@ -255,18 +264,18 @@ export const TransactionsColumns = [
       );
       return (
         <div>
-          <div>
+          <SearchCell query="client" value={args?.from?.replace('client|', '')}>
             <span className="text-xs text-gray-500">Sender:</span>{' '}
             {args?.from
               ? truncateMiddle(args.from.replace('client|', ''), 6, 4, '...')
               : '--'}
-          </div>
-          <div>
+          </SearchCell>
+          <SearchCell query="client" value={args?.to?.replace('client|', '')}>
             <span className="text-xs text-gray-500">Receiver:</span>{' '}
             {args?.to
               ? truncateMiddle(args.to.replace('client|', ''), 6, 4, '...')
               : '--'}
-          </div>
+          </SearchCell>
         </div>
       );
     },
