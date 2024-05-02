@@ -268,10 +268,21 @@ export function useGlobalSearch(query: string) {
   });
   useEffect(() => {
     if (payload.search !== query) {
-      const timerId = setTimeout(
-        () => setPayload((e) => ({ ...e, search: query })),
-        1000,
-      );
+      const timerId = setTimeout(() => {
+        const finalQuery = query
+          .split(' OR ')
+          .reduce((arr: string[], itm: string) => {
+            if (itm.includes('client:')) {
+              arr.push(itm.replace('client', 'reads'));
+              arr.push(itm.replace('client', 'writes'));
+            } else {
+              arr.push(itm);
+            }
+            return arr;
+          }, [])
+          .join(' OR ');
+        setPayload((e) => ({ ...e, search: finalQuery }));
+      }, 1000);
       return () => clearTimeout(timerId);
     }
   }, [query]);
