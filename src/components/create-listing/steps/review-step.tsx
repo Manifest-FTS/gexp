@@ -32,15 +32,28 @@ export default function ReviewStep({ formData, onUpdate }: ReviewStepProps) {
 
   const handlePublish = async () => {
     setIsPublishing(true);
-
     try {
-      // TODO: Implement actual listing creation API call
-      console.log('📝 Publishing listing with data:', formData);
-
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 2000));
-
-      // Mock success
+      // Publish listing to backend
+      const jwt = localStorage.getItem('galachain_jwt') || '';
+      const api = await import('@/lib/api/marketplace').then(
+        (m) => m.marketplaceAPI,
+      );
+      await Promise.all(
+        formData.selectedNFTs.map((nftId) =>
+          api.createListing({
+            nft_item_id: nftId,
+            seller_address: user?.address || '',
+            price: formData.price || 0,
+            currency: formData.currency,
+            listing_type: formData.listingType,
+            description: formData.description,
+            unlockable_content: formData.hasUnlockableContent
+              ? formData.unlockableContent
+              : undefined,
+            jwt,
+          }),
+        ),
+      );
       setPublishSuccess(true);
       console.log('✅ Listing published successfully!');
     } catch (error) {

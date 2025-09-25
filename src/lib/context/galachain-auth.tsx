@@ -80,19 +80,16 @@ async function connectViaExtension(): Promise<GalachainUser | null> {
 async function connectViaEthereum(): Promise<GalachainUser | null> {
   try {
     const ethereum = (window as any).ethereum;
-
     // Request account access
     const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
-
     if (!accounts || accounts.length === 0) {
       throw new Error('No accounts found');
     }
-
     const address = accounts[0];
-
+    // Only use Metamask for authentication, not GalaChain actions
     return {
       address,
-      publicKey: `eth_pubkey_${Date.now()}`, // Placeholder - would need real conversion
+      publicKey: '', // Not used for GalaChain, only for auth
       alias: 'EthUser',
       profile: {
         username: `eth_${address.slice(0, 8)}`,
@@ -130,28 +127,17 @@ Timestamp: ${timestamp}
 This action will not cost any fees.`;
 }
 
-// Sign message with wallet
+// Sign message with Metamask only
 async function signAuthMessage(user: GalachainUser): Promise<string> {
   const timestamp = Date.now();
   const message = createAuthMessage(user.address, timestamp);
-
   try {
-    // Try Galachain extension first
-    if (typeof window !== 'undefined' && (window as any).galachain) {
-      return await (window as any).galachain.request({
-        method: 'personal_sign',
-        params: [message, user.address],
-      });
-    }
-    // Fallback to Ethereum signing
-    else if (typeof window !== 'undefined' && (window as any).ethereum) {
+    if (typeof window !== 'undefined' && (window as any).ethereum) {
       return await (window as any).ethereum.request({
         method: 'personal_sign',
         params: [message, user.address],
       });
-    }
-    // Development fallback
-    else {
+    } else {
       console.log('🔧 Development mode: Using mock signature');
       return `mock_signature_${timestamp}_${user.address.slice(0, 8)}`;
     }

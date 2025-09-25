@@ -95,6 +95,43 @@ export interface APIResponse<T> {
 
 // API Client Class
 class GEXPMarketplaceAPI {
+  // Create a new marketplace listing
+  async createListing({
+    nft_item_id,
+    seller_address,
+    price,
+    currency,
+    listing_type,
+    description,
+    unlockable_content,
+    jwt,
+  }: {
+    nft_item_id: string;
+    seller_address: string;
+    price: number;
+    currency: string;
+    listing_type: string;
+    description?: string;
+    unlockable_content?: string;
+    jwt: string;
+  }) {
+    return this.request('/marketplace/listings', {
+      method: 'POST',
+      body: JSON.stringify({
+        nft_item_id,
+        seller_address,
+        price,
+        currency,
+        listing_type,
+        description,
+        unlockable_content,
+      }),
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${jwt}`,
+      },
+    });
+  }
   private baseUrl: string;
 
   constructor(baseUrl: string = API_BASE_URL) {

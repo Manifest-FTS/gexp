@@ -28,31 +28,26 @@ export default function SelectNFTsStep({
   const { user } = useGalachainAuth();
   const [showSwapOption, setShowSwapOption] = useState(false);
 
-  // Fetch user's NFTs - for now using mock data
-  // TODO: Replace with actual user NFT fetching based on wallet address
-  const mockUserNFTs = [
-    {
-      id: '1',
-      name: 'My Gala Hero #123',
-      image: 'https://picsum.photos/seed/nft1/300/300',
-      collection: 'Gala Games Heroes',
-      rarity: 'Legendary',
-    },
-    {
-      id: '2',
-      name: 'Dragon Strike #456',
-      image: 'https://picsum.photos/seed/nft2/300/300',
-      collection: 'Dragon Strike',
-      rarity: 'Epic',
-    },
-    {
-      id: '3',
-      name: 'Champions Arena #789',
-      image: 'https://picsum.photos/seed/nft3/300/300',
-      collection: 'Champions Arena',
-      rarity: 'Rare',
-    },
-  ];
+  // Fetch user's NFTs from backend
+  const [userNFTs, setUserNFTs] = useState<any[]>([]);
+  const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    async function fetchNFTs() {
+      if (!user?.address) return;
+      setLoading(true);
+      try {
+        const res = await import('@/lib/api/marketplace').then((m) =>
+          m.marketplaceAPI.getAllNFTs({ owner_address: user.address }),
+        );
+        setUserNFTs(res.data.items || []);
+      } catch (err) {
+        setUserNFTs([]);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchNFTs();
+  }, [user?.address]);
 
   const toggleNFTSelection = (nftId: string) => {
     const newSelected = selectedNFTs.includes(nftId)
@@ -128,7 +123,9 @@ export default function SelectNFTsStep({
           subTitle={`Choose ${listingType === 'sell' ? 'NFTs to sell' : 'NFTs to trade'}. You can select multiple items.`}
         />
 
-        {mockUserNFTs.length === 0 ? (
+        {loading ? (
+          <div className="text-center py-12">Loading NFTs...</div>
+        ) : userNFTs.length === 0 ? (
           <div className="text-center py-12">
             <div className="text-6xl mb-4">🎭</div>
             <div className="text-lg font-medium text-gray-900 dark:text-white mb-2">
@@ -140,7 +137,7 @@ export default function SelectNFTsStep({
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
-            {mockUserNFTs.map((nft) => (
+            {userNFTs.map((nft) => (
               <div
                 key={nft.id}
                 onClick={() => toggleNFTSelection(nft.id)}
@@ -173,7 +170,7 @@ export default function SelectNFTsStep({
                 {/* NFT Image */}
                 <div className="aspect-square">
                   <Image
-                    src={nft.image}
+                    src={nft.image_url}
                     alt={nft.name}
                     width={200}
                     height={200}
@@ -187,15 +184,15 @@ export default function SelectNFTsStep({
                     {nft.name}
                   </div>
                   <div className="text-sm text-gray-600 dark:text-gray-400 mb-1">
-                    {nft.collection}
+                    {nft.collection_id}
                   </div>
                   <div
                     className={cn(
                       'text-sm font-medium',
-                      getRarityColor(nft.rarity),
+                      getRarityColor(nft.rarity_score ? 'Rare' : 'Common'),
                     )}
                   >
-                    {nft.rarity}
+                    {nft.rarity_score ? 'Rare' : 'Common'}
                   </div>
                 </div>
               </div>
