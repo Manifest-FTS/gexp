@@ -1,5 +1,5 @@
-import CreateListing from '@/components/create-listing/create-listing';
+import MultiStepCreateListing from '@/components/create-listing/multi-step-listing';
 
 export default function Create() {
-  return <CreateListing />;
+  return <MultiStepCreateListing />;
 }

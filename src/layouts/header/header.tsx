@@ -10,7 +10,7 @@ import ActiveLink from '@/components/ui/links/active-link';
 import SearchButton from '@/components/search/button';
 import { useIsMounted } from '@/lib/hooks/use-is-mounted';
 import { useDrawer } from '@/components/drawer-views/context';
-import WalletConnect from '@/components/nft/wallet-connect';
+import GalachainConnectButton from '@/components/auth/galachain-connect';
 import routes from '@/config/routes';
 
 function NotificationButton() {
@@ -31,7 +31,7 @@ function HeaderRightArea() {
   return (
     <div className="relative flex items-center order-last gap-4 shrink-0 sm:gap-6 lg:gap-8">
       {/* <NotificationButton /> */}
-      <WalletConnect />
+      <GalachainConnectButton />
     </div>
   );
 }

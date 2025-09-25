@@ -3,7 +3,7 @@ import Image from '@/components/ui/image';
 import { StaticImageData } from 'next/image';
 
 interface AvatarProps {
-  image: StaticImageData;
+  image: StaticImageData | string;
   alt: string;
   className?: string;
   size?: SizeNames;

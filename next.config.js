@@ -3,7 +3,16 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ['assets.coingecko.com'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'assets.coingecko.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'picsum.photos',
+      },
+    ],
   },
   ...(process.env.NODE_ENV === 'production' && {
     typescript: {

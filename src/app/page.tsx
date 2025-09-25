@@ -6,6 +6,7 @@ import React, { useEffect } from 'react';
 // import BlockPieChart from '@/components/ui/chats/block-per-channel';
 // import NewBlockBarChart from '@/components/ui/chats/new-block';
 import SearchContextProvider from '@/lib/context/GlobalSearchContext';
+import Link from 'next/link';
 
 // 🚨 EXPLORER COMPONENTS DEACTIVATED - Now focusing on NFT Marketplace
 // All explorer components are preserved and can be re-enabled when needed
@@ -25,10 +26,24 @@ export default function Home() {
           </p>
           <div className="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg p-4 max-w-xl mx-auto">
             <p className="text-sm text-yellow-800 dark:text-yellow-200">
-              📢 <strong>Explorer Temporarily Deactivated</strong>
+              📢 <strong>Explorer on Vacation</strong>
               <br />
-              We&apos;re focusing on building the best NFT marketplace
-              experience. Explorer functionality will return soon!
+              GEXP explorer is taking an indefinite nap. Use the{' '}
+              <Link
+                href="https://galascan.gala.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Official GalaScan
+              </Link>{' '}
+              or{' '}
+              <Link
+                href="https://galachain-explorer.footprint.network/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Footprint Explorer&apos;s
+              </Link>
             </p>
           </div>
         </div>

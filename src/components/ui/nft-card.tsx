@@ -11,8 +11,8 @@ import routes from '@/config/routes';
 
 type NFTGridProps = {
   author: string;
-  authorImage: StaticImageData;
-  image: StaticImageData;
+  authorImage: StaticImageData | string;
+  image: StaticImageData | string;
   name: string;
   collection: string;
   price: string;
@@ -54,7 +54,15 @@ export default function NFTGrid({
         }
         className="relative block w-full"
       >
-        <Image src={image} width={450} height={450} alt="" className="w-full" />
+        <Image
+          src={image}
+          width={450}
+          height={450}
+          alt={name}
+          className="w-full"
+          placeholder="blur"
+          blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
+        />
       </AnchorLink>
 
       <div className="p-5">

@@ -2,6 +2,7 @@
 
 import Button from '@/components/ui/button';
 import Feeds from '@/components/search/feeds';
+import ItemCount from '@/components/search/item-count';
 import { useDrawer } from '@/components/drawer-views/context';
 import { Filters, GridSwitcher, SortList } from '@/components/search/filters';
 import { OptionIcon } from '@/components/icons/option';
@@ -17,9 +18,7 @@ export default function Search() {
 
         <div className="2xl:ltr:pl-8 2xl:rtl:pr-8 4xl:ltr:pl-10 4xl:rtl:pr-10">
           <div className="relative z-10 mb-6 flex items-center justify-between">
-            <span className="text-xs font-medium text-gray-900 dark:text-white sm:text-sm">
-              2,077 items
-            </span>
+            <ItemCount />
 
             <div className="flex gap-6 3xl:gap-8">
               <SortList />

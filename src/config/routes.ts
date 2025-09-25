@@ -5,6 +5,7 @@ const routes = {
   blocks: '/explorer/blocks',
   nfts: '/nfts',
   nftDetails: '/nfts/details',
+  profile: '/profile',
   notification: '/notifications',
   search: '/search',
   signIn: '/authentication',
