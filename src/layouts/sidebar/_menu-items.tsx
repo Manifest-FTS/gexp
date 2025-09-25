@@ -10,6 +10,7 @@ export const defaultMenuItems = [
     icon: <HomeIcon />,
     href: routes.home,
   },
+  /* 🚨 EXPLORER DEACTIVATED - Preserved for future use
   {
     name: 'Explorer',
     icon: <GalaIcon />,
@@ -25,6 +26,7 @@ export const defaultMenuItems = [
       },
     ],
   },
+  */
   {
     name: 'NFTs',
     icon: <CompassIcon />,
@@ -33,14 +35,14 @@ export const defaultMenuItems = [
       {
         name: 'Explore NFTs',
         icon: <CompassIcon />,
-        disable: true,
+        disable: false, // Re-enabled for marketplace
         href: routes.nfts,
       },
-      // {
-      //   name: 'Create Listing',
-      //   icon: <DiskIcon />,
-      //   href: routes.create,
-      // },
+      {
+        name: 'Create Listing',
+        icon: <DiskIcon />,
+        href: routes.create,
+      },
     ],
   },
 ];

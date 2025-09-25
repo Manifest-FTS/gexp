@@ -5,6 +5,13 @@
 /.pnp
 .pnp.js
 
+# Galachain SDK
+galachain/
+galachain/node_modules/
+galachain/.env
+galachain/dist/
+galachain/build/
+
 # testing
 /coverage
 
